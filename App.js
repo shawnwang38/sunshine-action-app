@@ -45,9 +45,10 @@ function NewsScreen() {
 }
 function DonateScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Donate!</Text>
-    </View>
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Donate' />
+      <Home />
+    </SafeAreaView>
   );
 }
 function AccountScreen() {
