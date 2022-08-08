@@ -20,6 +20,7 @@ import {
 } from '@expo-google-fonts/open-sans'
 import Header from './src/Header';
 import Home from './src/screens/Home';
+import Donate from './src/screens/Donate';
 
 function HomeScreen() {
   return (
@@ -47,7 +48,7 @@ function DonateScreen() {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Donate' />
-      <Home />
+      <Donate />
     </SafeAreaView>
   );
 }
