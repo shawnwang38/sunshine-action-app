@@ -2,13 +2,31 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  OpenSans_300Light,
+  OpenSans_300Light_Italic,
+  OpenSans_400Regular,
+  OpenSans_400Regular_Italic,
+  OpenSans_600SemiBold,
+  OpenSans_600SemiBold_Italic,
+  OpenSans_700Bold,
+  OpenSans_700Bold_Italic,
+  OpenSans_800ExtraBold,
+  OpenSans_800ExtraBold_Italic 
+} from '@expo-google-fonts/open-sans'
+import Header from './src/Header';
+import Home from './src/screens/Home';
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Home' />
+      <Home />
+    </SafeAreaView>
   );
 }
 function DiscoverScreen() {
@@ -43,44 +61,59 @@ function AccountScreen() {
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    OpenSans_400Regular,
+    OpenSans_600SemiBold,
+    OpenSans_700Bold
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === 'Home') {
-              iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
-            } else if (route.name === 'Discover') {
-              iconName = focused ? 'ios-compass' : 'ios-compass-outline';
-            } else if (route.name === 'News') {
-              iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
-            } else if (route.name === 'Donate') {
-              iconName = focused ? 'ios-heart' : 'ios-heart-outline';
-            } else if (route.name === 'Account') {
-              iconName = focused ? 'ios-person' : 'ios-person-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'coral',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Discover" component={DiscoverScreen} />
-        <Tab.Screen name="News" component={NewsScreen} />
-        <Tab.Screen name="Donate" component={DonateScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <StatusBar barStyle='black' />
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === 'Home') {
+                iconName = focused ? 'ios-home' : 'ios-home-outline';
+              } else if (route.name === 'Discover') {
+                iconName = focused ? 'ios-compass' : 'ios-compass-outline';
+              } else if (route.name === 'News') {
+                iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
+              } else if (route.name === 'Donate') {
+                iconName = focused ? 'ios-heart' : 'ios-heart-outline';
+              } else if (route.name === 'Account') {
+                iconName = focused ? 'ios-person' : 'ios-person-outline';
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: 'coral',
+            tabBarInactiveTintColor: 'black',
+            headerShown: false,
+            tabBarShowLabel: false,
+            tabBarStyle: { backgroundColor: '#ECD2B3' }
+          })}
+          sceneContainerStyle = {styles.container}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Discover" component={DiscoverScreen} />
+          <Tab.Screen name="News" component={NewsScreen} />
+          <Tab.Screen name="Donate" component={DonateScreen} />
+          <Tab.Screen name="Account" component={AccountScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: '#FFF7E3',
+    alignItems: 'stretch',
+    justifyContent: 'center'
+  }
 });
