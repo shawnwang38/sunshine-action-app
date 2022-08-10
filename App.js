@@ -24,6 +24,7 @@ import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
 import Calendar from './src/screens/Calendar';
+import News from './src/screens/News';
 
 function HomeScreen() {
   return (
@@ -43,9 +44,10 @@ function DiscoverScreen() {
 }
 function NewsScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>News!</Text>
-    </View>
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'News' />
+      <News />
+    </SafeAreaView>
   );
 }
 function DonateScreen() {
