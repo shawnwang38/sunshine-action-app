@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView, Text, View, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet, StatusBar } from "react-native";
 import { Constants, AppLoading } from 'expo' 
-import { Text, Avatar, withStyles, List } from 'react-native-elements';
+/*import { Text, Avatar, withStyles, List } from 'react-native-elements';*/
 
 
 const DATA = [

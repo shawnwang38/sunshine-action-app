@@ -7,14 +7,11 @@ import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calen
 export default function Discover() {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
-            <View style = {{ paddingHorizontal: 20, paddingVertical: 20, justifyContent: 'center', flexDirection: "row", fontFamily: 'OpenSans_700Bold', fontSize: 10, backgroundColor: 'transparent',}}>
-                <Button title="EVENTS" />
-                <Button title="CALENDAR" />
+            
+            <View style = {{ paddingHorizontal: 20, alignItems: 'center', paddingVertical: 20 }}>
+                <Calendar/>
             </View>
-            <View style = {{ paddingHorizontal: 20, alignItems: 'center', }}>
-                <Calendar />
-            </View>
-            <View style = {{ paddingHorizontal: 20, paddingVertical: 20, }}>
+            <View style = {{ paddingHorizontal: 0 }}>
             <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 24, alignSelf: 'flex-start', marginBottom: 8 }}>Upcoming Events</Text>
             <Card img={require('./../../assets/banner.jpeg')} title="Event Name" desc="Event Description" height={0} time="Mon, Jan 1, 00:00 - 24:00" />
             <Card img={require('./../../assets/banner.jpeg')} title="Event Name" desc="Event Description" height={0} time="Mon, Jan 1, 00:00 - 24:00" />

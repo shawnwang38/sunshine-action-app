@@ -25,6 +25,7 @@ import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
 import Calendar from './src/screens/Calendar';
 import News from './src/screens/News';
+import TopBarNavigator from './src/TopNavigation';
 
 function HomeScreen() {
   return (
@@ -36,9 +37,11 @@ function HomeScreen() {
 }
 function DiscoverScreen() {
   return (
+    
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      
       <Header text = 'Discover (unfinished)' />
-      <Discover />
+      <TopBarNavigator />
     </SafeAreaView>
   );
 }
