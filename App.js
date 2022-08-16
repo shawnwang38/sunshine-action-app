@@ -23,7 +23,7 @@ import Home from './src/screens/Home';
 import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
-import Calendar from './src/screens/Calendar';
+
 import News from './src/screens/News';
 import TopBarNavigator from './src/TopNavigation';
 

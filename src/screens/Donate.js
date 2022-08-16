@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, Alert, Modal, StyleSheet, Pressable } from "react-native";
+import { Text, View, ScrollView, StyleSheet } from "react-native";
 import DonateCard from '../Card';
+import GiveAsiaModal from './GiveAsiaModal';
+import GoGetFundingModal from './GoGetFundingModal';
+import BankTransferModal from './BankTransferModal';
+import ItemDonationModal from './ItemDonationModal';
 
 /* modal was commented out since it's still under construction */
 
@@ -8,35 +12,17 @@ import DonateCard from '../Card';
 
 export default function Donate() {
     return (
-        /*<View style={styles.centeredView}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Visit https://give.asia/charity/sunshine-action to make an online donation through Give.Asia.</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
-        </View>*/
+        
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20 }}>
+            <GiveAsiaModal />
+            <BankTransferModal />
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-                    <DonateCard img={require('./../../assets/giveasialogo.png')} title="Give.Asia" height={150} style = {{ width: 150, marginRight: 20 }} />
+                    <DonateCard img={require('./../../assets/giveasialogo.png')} title="Give.Asia" height={150} style = {{ width: 150, marginRight: 20 }} onPress = {() => {this.toggleModal(true)}} />
                     <DonateCard img={require('./../../assets/banktransfer.png')} title="Bank Transfer" height={150} style = {{ width: 150, marginRight: 20 }} />
             </ScrollView>
+            <GoGetFundingModal />
+            <ItemDonationModal />
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
                 <DonateCard img={require('./../../assets/ggf.png')} title="GoGetFunding" height={150} style = {{ width: 150, marginRight: 20 }} />
                 <DonateCard img={require('./../../assets/itemdonation.png')} title="Item Donation" height={150} style = {{ width: 150, marginRight: 20 }} />
@@ -47,6 +33,7 @@ export default function Donate() {
         
     );
 }
+
 
 /*
 const styles = StyleSheet.create({
