@@ -23,6 +23,7 @@ import Home from './src/screens/Home';
 import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
+import Account from './src/screens/Account';
 
 import News from './src/screens/News';
 import TopBarNavigator from './src/TopNavigation';
@@ -40,7 +41,7 @@ function DiscoverScreen() {
     
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       
-      <Header text = 'Discover (unfinished)' />
+      <Header text = 'Discover' />
       <TopBarNavigator />
     </SafeAreaView>
   );
@@ -63,9 +64,18 @@ function DonateScreen() {
 }
 function AccountScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Account!</Text>
-    </View>
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Account' />
+      <Account />
+    </SafeAreaView>
+  );
+}
+function AccountSettingsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Account Settings' />
+      
+    </SafeAreaView>
   );
 }
 
