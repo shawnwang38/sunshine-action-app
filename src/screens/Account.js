@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import { Text, Image, Button, View, ScrollView, Alert, Modal, StyleSheet, Pressable } from "react-native";
-import Card from '../Card';
-import Header from '../Header';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+/*
+Button navigation to account settings, temporarily removed
+<Button title="Account Settings" onPress={() => navigation.navigate('Account Settings')} />
+*/
 export default function Account() {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20, alignItems: 'center', paddingVertical: 20 }}>
-                <Button title="Account Settings" onPress={() => navigation.navigate('Account Settings')} />
+                <Button buttonStyle={styles.button} title="Change Username" />
+                <View style={styles.space} />
+                <Button title="Change Password" style={styles.button} />
+                <View style={styles.space} />
+                <Button title="Change Details" style={styles.button} />
             </View>
         </ScrollView>
         
@@ -19,15 +26,13 @@ export default function Account() {
 
 const styles = StyleSheet.create({
     button: {
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2
+      marginBottom: 20,
+      padding: 30,
+      backgroundColor: '#FF7F50',
     },
-    buttonOpen: {
-      backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-      backgroundColor: "#2196F3",
-    },
+    space: {
+        height: 20,
+        width: 100,
+    }
   });
 

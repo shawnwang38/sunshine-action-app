@@ -16,7 +16,7 @@ class GoGetFundingModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                            <Text style = {styles.text}>gogetfunding</Text>
+                            <Text style = {styles.text}>Visit gogetfunding.com to make an online donation to Sunshine Action.</Text>
 
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
@@ -26,7 +26,7 @@ class GoGetFundingModal extends Component {
                     </Modal>
                     
                     <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Text>GoGetFunding</Text>
+                        <Image source={require('./../../assets/gogetfundingbutton.png')} style={{height: 210, width: 150}} />
                     </TouchableHighlight>
                     
             </View>

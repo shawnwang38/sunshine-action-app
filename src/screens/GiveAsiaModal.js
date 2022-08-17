@@ -25,7 +25,7 @@ class GiveAsiaModal extends Component {
                     </Modal>
                     
                     <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Text>Give.Asia</Text>
+                        <Image source={require('./../../assets/giveasiabutton.png')} style={{height: 210, width: 150}} />
                     </TouchableHighlight>
                     
             </View>

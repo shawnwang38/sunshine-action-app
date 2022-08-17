@@ -16,37 +16,22 @@ class BankTransferModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                            <Text style = {styles.text}>Bank Wire Transfer:
-
-HSBC:
-
-Account No.: 400-595989-838
-
-Swift: HSBCHKHHHKH
-
-Bank I.D.: 400
-
-Beneficiary I.D.: 595989-838
-
-Bank Address: 1 Queen's Road, Central Hong Kong
-
-Bank Tel: 2748 8288
-
-Bank of China:
-
-Account No.: 012 926 1 018415 6
-
-Swift: BKCHHKHHXXX
-
-Bank I.D.: 012
-
-Branch I.D.: 926
-
-Beneficiary I.D.: 10184156
-
-Bank Address: Head Office 1 Garden Road, Hong Kong
-
-Bank Tel: (852)-2826-6888</Text>
+                            <Text style = {styles.text}>Use the following details to make a bank wire transfer:</Text>
+                            <Text style = {styles.text}>HSBC:</Text>
+                            <Text style = {styles.text}>Account No.: 400-595989-838</Text>
+                            <Text style = {styles.text}>Swift: HSBCHKHHHKH</Text>
+                            <Text style = {styles.text}>Bank I.D.: 400</Text>
+                            <Text style = {styles.text}>Beneficiary I.D.: 595989-838</Text>
+                            <Text style = {styles.text}>Bank Address: 1 Queen's Road, Central Hong Kong</Text>
+                            <Text style = {styles.text}>Bank Tel: 2748 8288</Text>
+                            <Text style = {styles.text}>Bank of China:</Text>
+                            <Text style = {styles.text}>Account No.: 012 926 1 018415 6</Text>
+                            <Text style = {styles.text}>Swift: BKCHHKHHXXX</Text>
+                            <Text style = {styles.text}>Bank I.D.: 012</Text>
+                            <Text style = {styles.text}>Branch I.D.: 926</Text>
+                            <Text style = {styles.text}>Beneficiary I.D.: 10184156</Text>
+                            <Text style = {styles.text}>Bank Address: Head Office 1 Garden Road, Hong Kong</Text>
+                            <Text style = {styles.text}>Bank Tel: (852)-2826-6888</Text>
 
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
@@ -56,7 +41,7 @@ Bank Tel: (852)-2826-6888</Text>
                     </Modal>
                     
                     <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Text>Bank Transfer</Text>
+                        <Image source={require('./../../assets/banktransferbutton.png')} style={{height: 210, width: 150}} />
                     </TouchableHighlight>
                     
             </View>

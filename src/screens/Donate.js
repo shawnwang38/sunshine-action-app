@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, Button, TouchableHighlight, ScrollView, StyleSheet } from "react-native";
 import DonateCard from '../Card';
 import GiveAsiaModal from './GiveAsiaModal';
 import GoGetFundingModal from './GoGetFundingModal';
 import BankTransferModal from './BankTransferModal';
 import ItemDonationModal from './ItemDonationModal';
+
 
 /* modal was commented out since it's still under construction */
 
@@ -12,20 +13,18 @@ import ItemDonationModal from './ItemDonationModal';
 
 export default function Donate() {
     return (
-        
+      
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20 }}>
-            <GiveAsiaModal />
-            <BankTransferModal />
+            
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-                    <DonateCard img={require('./../../assets/giveasialogo.png')} title="Give.Asia" height={150} style = {{ width: 150, marginRight: 20 }} onPress = {() => {this.toggleModal(true)}} />
-                    <DonateCard img={require('./../../assets/banktransfer.png')} title="Bank Transfer" height={150} style = {{ width: 150, marginRight: 20 }} />
+              <GiveAsiaModal />
+              <BankTransferModal />
             </ScrollView>
-            <GoGetFundingModal />
-            <ItemDonationModal />
+            
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-                <DonateCard img={require('./../../assets/ggf.png')} title="GoGetFunding" height={150} style = {{ width: 150, marginRight: 20 }} />
-                <DonateCard img={require('./../../assets/itemdonation.png')} title="Item Donation" height={150} style = {{ width: 150, marginRight: 20 }} />
+                <GoGetFundingModal />
+                <ItemDonationModal />
             </ScrollView>
             
             </View>
@@ -81,3 +80,8 @@ const styles = StyleSheet.create({
   });
 */
 
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 300,
+  }
+});

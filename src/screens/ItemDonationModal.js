@@ -16,8 +16,19 @@ class ItemDonationModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                            <Text style = {styles.text}>itemdonation</Text>
-
+                            <Text style = {styles.text}>Accepted items for donation include:</Text>
+                            <Text style = {styles.text}>- White/brown rice, oats, and nuts</Text>
+                            <Text style = {styles.text}>- Canned food with at least 6 months until expiration date</Text>
+                            <Text style = {styles.text}>- Pasta and noodles</Text>
+                            <Text style = {styles.text}>- Cooking oils such as canola, coconut, vegetable, etc.</Text>
+                            <Text style = {styles.text}>- Any form of condiments</Text>
+                            <Text style = {styles.text}>- Juices and other healthy drinks</Text>
+                            <Text style = {styles.text}>Non-Food Items:</Text>
+                            <Text style = {styles.text}>- Detergent, shampoo and conditioner</Text>
+                            <Text style = {styles.text}>- Face and moisturising cream</Text>
+                            <Text style = {styles.text}>- Toilet paper and tissue</Text>
+                            <Text style = {styles.text}>- Notebooks and general stationery</Text>
+                            <Text style = {styles.text}>- Children and adult clothing (either new or secondhand, in good condition)</Text>
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
                                     <Text style = {styles.text}>Close</Text>
@@ -26,7 +37,7 @@ class ItemDonationModal extends Component {
                     </Modal>
                     
                     <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Text>Item Donation</Text>
+                    <Image source={require('./../../assets/itemdonationbutton.png')} style={{height: 210, width: 150}} />
                     </TouchableHighlight>
                     
             </View>
