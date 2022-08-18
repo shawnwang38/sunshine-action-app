@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
 import { Text, View, Button, TouchableHighlight, ScrollView, StyleSheet } from "react-native";
 import DonateCard from '../Card';
-import GiveAsiaModal from './GiveAsiaModal';
-import GoGetFundingModal from './GoGetFundingModal';
-import BankTransferModal from './BankTransferModal';
-import ItemDonationModal from './ItemDonationModal';
+import AmbassadorsTopBarNavigator from '../AmbassadorsTopNavigator';
+import ContactCard from '../ContactCard';
 
 export default function Ambassadors() {
     return (
       
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20 }}>
+            <View style={{ height: 200, backgroundColor: "#FFF" }} />
+            <ContactCard title="Your Location" />
+            <AmbassadorsTopBarNavigator />
             
-            <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-              <GiveAsiaModal />
-              <BankTransferModal />
-            </ScrollView>
-            
-            <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-                <GoGetFundingModal />
-                <ItemDonationModal />
-            </ScrollView>
             
             </View>
         </ScrollView>

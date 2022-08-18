@@ -20,7 +20,7 @@ export default function Card(props) {
     );
 }
 
-function DonateCard(props) {
+/*function DonateCard(props) {
     return (
         <TouchableOpacity activeOpacity={0.5}>
             <View style = {{ ...props.style, shadowColor: 'black', shadowOffset: { width: 2, height: 4 }, shadowRadius: 5, shadowOpacity: 0.3, marginBottom: 20 }}>
@@ -35,4 +35,4 @@ function DonateCard(props) {
             </View>
         </TouchableOpacity>
     );
-}
+}*/

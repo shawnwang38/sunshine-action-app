@@ -28,6 +28,7 @@ import UselessTextInput from './src/screens/Login';
 import News from './src/screens/News';
 import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
 import Ambassadors from './src/screens/Ambassadors';
+import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
 
 function HomeScreen() {
   return (
@@ -44,6 +45,8 @@ function DiscoverScreen() {
       
       <Header text='Discover' />
       <DiscoverTopBarNavigator />
+      
+      
     </SafeAreaView>
   );
 }
