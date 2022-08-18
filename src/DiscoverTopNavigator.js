@@ -62,7 +62,7 @@ function MyTabs() {
     )
 }
 
-export default function TopBarNavigator() {
+export default function DiscoverTopBarNavigator() {
     return (
         <NavigationContainer independent={true}>
             <MyTabs />

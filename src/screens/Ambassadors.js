@@ -6,7 +6,7 @@ import GoGetFundingModal from './GoGetFundingModal';
 import BankTransferModal from './BankTransferModal';
 import ItemDonationModal from './ItemDonationModal';
 
-export default function Donate() {
+export default function Ambassadors() {
     return (
       
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>

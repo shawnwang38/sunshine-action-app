@@ -12,11 +12,7 @@ export default function Account() {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20, alignItems: 'center', paddingVertical: 20 }}>
-                <Button buttonStyle={styles.button} title="Change Username" />
-                <View style={styles.space} />
-                <Button title="Change Password" style={styles.button} />
-                <View style={styles.space} />
-                <Button title="Change Details" style={styles.button} />
+            <Button title="Account Settings" color="coral" onPress={() => navigation.navigate('Account Settings')} />
             </View>
         </ScrollView>
         

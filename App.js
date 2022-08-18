@@ -24,9 +24,10 @@ import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
 import Account from './src/screens/Account';
-
+import UselessTextInput from './src/screens/Login';
 import News from './src/screens/News';
-import TopBarNavigator from './src/TopNavigation';
+import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
+import Ambassadors from './src/screens/Ambassadors';
 
 function HomeScreen() {
   return (
@@ -41,8 +42,8 @@ function DiscoverScreen() {
     
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       
-      <Header text = 'Discover' />
-      <TopBarNavigator />
+      <Header text='Discover' />
+      <DiscoverTopBarNavigator />
     </SafeAreaView>
   );
 }
@@ -74,11 +75,26 @@ function AccountSettingsScreen() {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Account Settings' />
-      
+      <AccountSettings />
     </SafeAreaView>
   );
 }
-
+function LoginScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      
+      <UselessTextInput />
+    </SafeAreaView>
+  );
+}
+function AmbassadorsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text="Find an Ambassador" />
+      <Ambassadors />
+    </SafeAreaView>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 
