@@ -35,7 +35,7 @@ class BankTransferModal extends Component {
 
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
-                                    <Text style = {styles.text}>Close</Text>
+                                    <Text style = {styles.close}>Close</Text>
                             </TouchableHighlight>
                         </View>
                     </Modal>
@@ -89,4 +89,11 @@ const styles = StyleSheet.create ({
         shadowRadius: 4,
         elevation: 5
       },
+      close: {
+        backgroundColor: "coral",
+        borderRadius: 10,
+        padding: 5,
+        marginTop: 10,
+        color: "white",
+    }
  })

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, Text, Button, TouchableHighlight, Image, View, StyleSheet} from "react-native";
-import DonateCard from '../Card';
+import { Modal, Text, Button, TouchableHighlight, Image, View, StyleSheet, TextInput } from "react-native";
 
-class GiveAsiaModal extends Component {
+
+//this is a basic modal component which takes in text and title for a button (when clicked opens the modal) 
+
+class AccountModal extends Component {
     state = {
         modalVisible: false,
     }
@@ -16,23 +18,28 @@ class GiveAsiaModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                            <Text style = {styles.text}>Visit https://give.asia/charity/sunshine-action to make a donation via Give.Asia.</Text>
+                        <TextInput
+                            style={styles.input}
+                            
+                            
+                            placeholder={this.props.field}
+                            keyboardType="numeric"
+                            />
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
-                                    <Text style = {styles.text}>Close</Text>
+                                    <Text style = {styles.close}>Close</Text>
                             </TouchableHighlight>
                         </View>
                     </Modal>
                     
-                    <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Image source={require('./../../assets/giveasiabutton.png')} style={{height: 210, width: 150}} />
-                    </TouchableHighlight>
+                    
+                    <Button title={this.props.title} color="coral" onPress = {() => {this.toggleModal(true)}} />
                     
             </View>
         )
     }
 }
-export default GiveAsiaModal
+export default AccountModal
 
 
 
@@ -73,4 +80,32 @@ const styles = StyleSheet.create ({
         shadowRadius: 4,
         elevation: 5
       },
- })
+      close: {
+        backgroundColor: "coral",
+        borderRadius: 10,
+        padding: 5,
+        marginTop: 10,
+        color: "white",
+    },
+    
+        input: {
+          height: 40,
+          margin: 12,
+          borderWidth: 1,
+          padding: 10,
+          marginLeft: 70,
+          marginRight: 70,
+        },
+        button: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 12,
+          paddingHorizontal: 32,
+          borderRadius: 4,
+          elevation: 3,
+          backgroundColor: 'coral',
+        },
+        fixToText: {
+          marginHorizontal: 50,
+        }
+})

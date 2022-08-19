@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Text, Button, TouchableHighlight, Image, View, StyleSheet} from "react-native";
-import DonateCard from '../Card';
 
-class GoGetFundingModal extends Component {
+
+//this is a basic modal component which takes in text and img (image is the button that when clicked opens the modal) 
+class ModalDisplay extends Component {
     state = {
         modalVisible: false,
     }
@@ -16,24 +17,25 @@ class GoGetFundingModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                            <Text style = {styles.text}>Visit gogetfunding.com to make an online donation to Sunshine Action.</Text>
-
+                            <Text style = {styles.text}>{this.props.text}</Text>
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
-                                    <Text style = {styles.text}>Close</Text>
+                                    <Text style = {styles.close}>Close</Text>
                             </TouchableHighlight>
                         </View>
                     </Modal>
                     
+                    
                     <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-                        <Image source={require('./../../assets/gogetfundingbutton.png')} style={{height: 210, width: 150}} />
+                        <Image source={this.props.img} style={{height: 210, width: 150}} />
+                        
                     </TouchableHighlight>
                     
             </View>
         )
     }
 }
-export default GoGetFundingModal
+export default ModalDisplay
 
 
 
@@ -74,4 +76,11 @@ const styles = StyleSheet.create ({
         shadowRadius: 4,
         elevation: 5
       },
+      close: {
+        backgroundColor: "coral",
+        borderRadius: 10,
+        padding: 5,
+        marginTop: 10,
+        color: "white",
+    }
  })

@@ -31,7 +31,7 @@ class ItemDonationModal extends Component {
                             <Text style = {styles.text}>- Children and adult clothing (either new or secondhand, in good condition)</Text>
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
-                                    <Text style = {styles.text}>Close</Text>
+                                    <Text style = {styles.close}>Close</Text>
                             </TouchableHighlight>
                         </View>
                     </Modal>
@@ -85,4 +85,11 @@ const styles = StyleSheet.create ({
         shadowRadius: 4,
         elevation: 5
       },
+      close: {
+        backgroundColor: "coral",
+        borderRadius: 10,
+        padding: 5,
+        marginTop: 10,
+        color: "white",
+    }
  })

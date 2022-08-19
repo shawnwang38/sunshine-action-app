@@ -10,7 +10,9 @@ export default function Ambassadors() {
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20 }}>
             <View style={{ height: 200, backgroundColor: "#FFF" }} />
-            <ContactCard title="Your Location" />
+            <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 24, alignSelf: 'flex-start', marginBottom: 8, marginTop: 8 }}>
+                    {"Your Location"}
+                </Text>
             <AmbassadorsTopBarNavigator />
             
             

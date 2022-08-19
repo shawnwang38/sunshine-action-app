@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, Button, TouchableHighlight, ScrollView, StyleSheet } from "react-native";
 import DonateCard from '../Card';
-import GiveAsiaModal from './GiveAsiaModal';
-import GoGetFundingModal from './GoGetFundingModal';
+import ModalDisplay from './ModalDisplay';
+
 import BankTransferModal from './BankTransferModal';
 import ItemDonationModal from './ItemDonationModal';
+
+//the reason why the modal template is not used for bank transfer and item donation is because those modals require line breaks, which get messed up when ModalDisplay is used.
 
 export default function Donate() {
     return (
@@ -13,12 +15,12 @@ export default function Donate() {
             <View style = {{ paddingHorizontal: 20 }}>
             
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-              <GiveAsiaModal />
+              <ModalDisplay text="To make a donation via Give.Asia, visit https://give.asia/charity/sunshine-action." img={require('./../../assets/giveasiabutton.png')} />
               <BankTransferModal />
             </ScrollView>
             
             <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
-                <GoGetFundingModal />
+            <ModalDisplay text="To make a donation via GoGetFunding, visit gogetfunding.com." img={require('./../../assets/gogetfundingbutton.png')} />
                 <ItemDonationModal />
             </ScrollView>
             

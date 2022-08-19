@@ -7,7 +7,6 @@ const UselessTextInput = () => {
 
   return (
     <SafeAreaView>
-    
     <Image source={require('./../../assets/logo.png')} style={{height: 200, width: 200, alignSelf: "center", marginTop: 150}} />
       <TextInput
         style={styles.input}
