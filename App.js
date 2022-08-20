@@ -30,6 +30,7 @@ import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
 import Ambassadors from './src/screens/Ambassadors';
 import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
 import AccountSettings from './src/screens/AccountSettings';
+import EventDetails from './src/screens/EventDetails';
 
 function HomeScreen() {
   return (
@@ -96,6 +97,14 @@ function AmbassadorsScreen() {
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text="Find an Ambassador" />
       <Ambassadors />
+    </SafeAreaView>
+  );
+}
+function EventDetailsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text="Event Details" />
+      <EventDetails />
     </SafeAreaView>
   );
 }
