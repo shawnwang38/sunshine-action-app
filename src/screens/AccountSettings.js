@@ -9,7 +9,7 @@ import AccountModal from './AccountModal';
 Button navigation to account settings, temporarily removed
 <Button title="Account Settings" onPress={() => navigation.navigate('Account Settings')} />
 */
-export default function AccountSettings() {
+export default function AccountSettings({ navigation, route }) {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20, alignItems: 'center', paddingVertical: 20 }}>

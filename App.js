@@ -31,6 +31,7 @@ import Ambassadors from './src/screens/Ambassadors';
 import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
 import AccountSettings from './src/screens/AccountSettings';
 import EventDetails from './src/screens/EventDetails';
+import AccountsBarNavigator from './src/AccountsNavigator';
 
 function HomeScreen() {
   return (
@@ -72,7 +73,8 @@ function AccountScreen() {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Account' />
-      <AccountSettings />
+      <Account/>
+      <AccountsBarNavigator/>
     </SafeAreaView>
   );
 }
