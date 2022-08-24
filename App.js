@@ -1,3 +1,5 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,6 +28,18 @@ import Events from './src/screens/Events';
 import Calendar from './src/screens/Calendar';
 import News from './src/screens/News';
 import TopBarNavigator from './src/TopNavigation';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBY7mnxC1Qt3UpOENwPTPmUzGalU-FZjpg",
+  authDomain: "sunshine-action-app.firebaseapp.com",
+  projectId: "sunshine-action-app",
+  storageBucket: "sunshine-action-app.appspot.com",
+  messagingSenderId: "812985980379",
+  appId: "1:812985980379:web:b0f15b41fa0f47819803fe",
+  measurementId: "G-7VLYZNHMKB"
+};
+
+initializeApp(firebaseConfig);
 
 function HomeScreen() {
   return (
@@ -68,7 +82,6 @@ function AccountScreen() {
     </View>
   );
 }
-
 
 const Tab = createBottomTabNavigator();
 
