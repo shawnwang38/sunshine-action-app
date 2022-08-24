@@ -34,6 +34,7 @@ import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
 import AccountSettings from './src/screens/AccountSettings';
 import EventDetails from './src/screens/EventDetails';
 import AccountsBarNavigator from './src/AccountsNavigator';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY7mnxC1Qt3UpOENwPTPmUzGalU-FZjpg",
@@ -102,10 +103,7 @@ function AccountSettingsScreen() {
 }
 function LoginScreen() {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      
-      <UselessTextInput />
-    </SafeAreaView>
+      <UselessTextInput style ={styles.container} />
   );
 }
 function AmbassadorsScreen() {
@@ -125,8 +123,45 @@ function EventDetailsScreen() {
   );
 }
 
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function Tabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused ? 'ios-home' : 'ios-home-outline';
+          } else if (route.name === 'Discover') {
+            iconName = focused ? 'ios-compass' : 'ios-compass-outline';
+          } else if (route.name === 'News') {
+            iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
+          } else if (route.name === 'Donate') {
+            iconName = focused ? 'ios-heart' : 'ios-heart-outline';
+          } else if (route.name === 'Account') {
+            iconName = focused ? 'ios-person' : 'ios-person-outline';
+          } 
+          
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'coral',
+        tabBarInactiveTintColor: 'black',
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: { backgroundColor: '#ECD2B3' }
+      })}
+      sceneContainerStyle = {styles.container}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Discover" component={DiscoverScreen} />
+      <Tab.Screen name="News" component={NewsScreen} />
+      <Tab.Screen name="Donate" component={DonateScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
+    </Tab.Navigator>
+  )
+}
 export default function App() {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
@@ -140,38 +175,11 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar barStyle='black' />
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-              if (route.name === 'Home') {
-                iconName = focused ? 'ios-home' : 'ios-home-outline';
-              } else if (route.name === 'Discover') {
-                iconName = focused ? 'ios-compass' : 'ios-compass-outline';
-              } else if (route.name === 'News') {
-                iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
-              } else if (route.name === 'Donate') {
-                iconName = focused ? 'ios-heart' : 'ios-heart-outline';
-              } else if (route.name === 'Account') {
-                iconName = focused ? 'ios-person' : 'ios-person-outline';
-              } 
-              
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: 'coral',
-            tabBarInactiveTintColor: 'black',
-            headerShown: false,
-            tabBarShowLabel: false,
-            tabBarStyle: { backgroundColor: '#ECD2B3' }
-          })}
-          sceneContainerStyle = {styles.container}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Discover" component={DiscoverScreen} />
-          <Tab.Screen name="News" component={NewsScreen} />
-          <Tab.Screen name="Donate" component={DonateScreen} />
-          <Tab.Screen name="Account" component={AccountScreen} />
-        </Tab.Navigator>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Settings" component={AccountSettings} />
+        </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
