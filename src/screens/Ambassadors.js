@@ -3,6 +3,8 @@ import { Text, View, Button, TouchableHighlight, ScrollView, StyleSheet } from "
 import DonateCard from '../Card';
 import AmbassadorsTopBarNavigator from '../AmbassadorsTopNavigator';
 import ContactCard from '../ContactCard';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function Ambassadors() {
     return (

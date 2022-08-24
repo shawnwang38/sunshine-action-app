@@ -4,45 +4,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AccountsBarNavigator from '../AccountsNavigator';
+import { useNavigation } from 'react-navigation';
+import accountStackNav from '../../App';
+import App from '../../App';
 
-/*
-I (rachel) have been messing with the navigation, commented it out for now
 
-const Stack = createNativeStackNavigator();
-
-const MyStack = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{ title: 'Account' }}
-        />
-        <Stack.Screen name="Account Settings" component={AccountSettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-const AccountScreen = ({ navigation }) => {
-    return (
-      <Button
-        title="Go to Jane's profile"
-        onPress={() =>
-          navigation.navigate('Account Settings')
-        }
-      />
-    );
-  };
-  const AccountSettingsScreen = ({ navigation, route }) => {
-    return <Text>pepep</Text>;
-  };
-
-  export default MyStack;
-
-*/
 export default function Account(props, { navigation, route }) {
+  
   return(
+    
     <View>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
         <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
@@ -55,7 +25,8 @@ export default function Account(props, { navigation, route }) {
                 <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'grey', fontSize: 15, marginBottom: 6, paddingRight: 40 }}>Member Since DD/MM/YY</Text>
               </View>
               <View style = {{ flexDirection: 'row', backgroundColor: 'transparent' }}>
-                <TouchableOpacity activeOpacity={0.5}>
+                <Button onPress={() => navigation.navigate('AccountSettings')} title="set"/>
+                <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.push("AccountSettings")}} >
                   <View style = {{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'orange', padding: 10 }}>
                     <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'white', fontSize: 15 }}>Account Settings</Text>
                   </View>
