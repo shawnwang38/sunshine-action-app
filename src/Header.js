@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
 import Ambassadors from './screens/Ambassadors';
+import { signOut } from 'firebase/auth';
 
 const SIZE = 40;
 
@@ -26,7 +27,7 @@ export default function Header(props) {
                 </Text>
                 
             </View>
-            
+            <Button title = "Sign Out" onPress = {() => { signOut(props.auth) }}></Button>
             <TouchableOpacity >
                 <Image source={require('./../assets/ambassadorsymbol.png')} style={{ height: 20, width: 23 }} onPress={AmbassadorsScreen}/>
             </TouchableOpacity>

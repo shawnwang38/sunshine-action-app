@@ -1,13 +1,39 @@
 import React from "react";
 import { ActivityIndicator, KeyboardAvoidingView, SafeAreaView, View, StyleSheet, TextInput, Text, Image, Button, Pressable, TouchableOpacity } from "react-native";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const UselessTextInput = (props) => {
-  const [text, onChangeText] = React.useState(null);
-  const [number, onChangeNumber] = React.useState(null);
+const Login = (props) => {
+  const [email, onChangeEmail] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
   const [loading, onChangeLoading] = React.useState(false);
+  const [invalid, onChangeInvalid] = React.useState("");
   const passwordInput = React.useRef(null);
+  function validMail(mail)
+  {
+      return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(mail);
+  }
   function login() {
-    onChangeLoading(true);
+    if (!validMail(email)) {
+      onChangeInvalid("Invalid email");
+    } else if (password.length < 6) {
+      onChangeInvalid("Invalid password");
+    } else {
+      onChangeInvalid("");
+      onChangeLoading(true);
+      signInWithEmailAndPassword(props.auth, email, password).then(() => {
+        onChangeLoading(false);
+        props.navigation.navigate("Tabs");
+      }).catch((err) => {
+        onChangeLoading(false);
+        if (err.code == "auth/invalid-email" || err.code == "auth/user-not-found") {
+          onChangeInvalid("User not found");
+        } else if (err.code == "auth/wrong-password") {
+          onChangeInvalid("Invalid password");
+        } else {
+          onChangeInvalid(err.message);
+        }
+      });
+    }
   }
   return (
     <SafeAreaView style = {props.style}>
@@ -15,8 +41,8 @@ const UselessTextInput = (props) => {
         <Image source={require('./../../assets/logo.png')} style={{height: 200, width: 200, resizeMode: "contain", alignSelf: "center", marginBottom: 40}} />
         <TextInput
           style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
+          onChangeText={onChangeEmail}
+          value={email}
           placeholder="Email"
           keyboardType="email-address"
           onSubmitEditing={() => passwordInput.current.focus()}
@@ -25,8 +51,8 @@ const UselessTextInput = (props) => {
         />
         <TextInput
           style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
+          onChangeText={onChangePassword}
+          value={password}
           placeholder="Password"
           secureTextEntry={true}
           ref = {passwordInput}
@@ -34,8 +60,9 @@ const UselessTextInput = (props) => {
           returnKeyType="done"
           editable = {!loading ? true : false}
         />
+        { invalid ? <Text style = {{ color: "red", textAlign: "center"}}>{invalid}</Text> : null }
         <View style = {{ marginTop: 20 }}>
-          <ActivityIndicator style = {{marginBottom: 20, display: !loading ? "none" : "flex" }} />
+          { loading ? <ActivityIndicator style = {{marginBottom: 20 }} /> : null }
           <Button title="Login" color="coral" onPress={login} disabled={loading} />
         </View>
         <View style = {{ marginTop: 20, marginBottom: 50, justifyContent: 'center', alignItems: 'center' }}>
@@ -67,7 +94,7 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     marginHorizontal: 50,
-  }
+  },
 });
 
-export default UselessTextInput;
+export default Login;

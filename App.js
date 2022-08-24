@@ -1,4 +1,6 @@
+import { useState, useRef } from "react";
 import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
@@ -26,7 +28,7 @@ import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
 import Account from './src/screens/Account';
-import UselessTextInput from './src/screens/Login';
+import Login from './src/screens/Login';
 import News from './src/screens/News';
 import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
 import Ambassadors from './src/screens/Ambassadors';
@@ -51,7 +53,7 @@ initializeApp(firebaseConfig);
 function HomeScreen() {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'Home' />
+      <Header text = 'Home' auth = {auth} />
       <Home />
     </SafeAreaView>
   );
@@ -101,9 +103,9 @@ function AccountSettingsScreen() {
     </SafeAreaView>
   );
 }
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   return (
-      <UselessTextInput style ={styles.container} />
+      <Login style = {styles.container} auth = {auth} navigation = {navigation} />
   );
 }
 function AmbassadorsScreen() {
@@ -123,10 +125,16 @@ function EventDetailsScreen() {
   );
 }
 
+const auth = getAuth();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function Tabs() {
+function Tabs({ navigation }) {
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      navigation.navigate("Login");
+    }
+  });
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -163,19 +171,28 @@ function Tabs() {
   )
 }
 export default function App() {
+  const [status, onChangeStatus] = useState(null);
+  const rootNav = useRef(null);
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      onChangeStatus(true);
+    } else {
+      onChangeStatus(false);
+    }
+  });
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold
   });
-  if (!fontsLoaded) {
+  if (!fontsLoaded || status === null) {
     return <AppLoading />;
   }
   return (
     <SafeAreaProvider>
       <StatusBar barStyle='black' />
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+      <NavigationContainer ref = {rootNav}>
+        <Stack.Navigator initialRouteName={ status ? "Tabs" : "Login" }>
           <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={AccountSettings} />

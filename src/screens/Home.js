@@ -4,7 +4,6 @@ import Card from '../Card';
 
 export default function Home() {
     return (
-        
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20 }}>
                 <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 24, alignSelf: 'flex-start', marginBottom: 8 }}>
