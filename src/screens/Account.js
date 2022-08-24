@@ -26,7 +26,7 @@ export default function Account(props, { navigation, route }) {
               </View>
               <View style = {{ flexDirection: 'row', backgroundColor: 'transparent' }}>
                 <Button onPress={() => navigation.navigate('AccountSettings')} title="set"/>
-                <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.push("AccountSettings")}} >
+                <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.navigate("Settings")}} >
                   <View style = {{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'orange', padding: 10 }}>
                     <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'white', fontSize: 15 }}>Account Settings</Text>
                   </View>

@@ -5,10 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AccountModal from './AccountModal';
 
-/*
-Button navigation to account settings, temporarily removed
-<Button title="Account Settings" onPress={() => navigation.navigate('Account Settings')} />
-*/
+
 export default function AccountSettings({ navigation, route }) {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>

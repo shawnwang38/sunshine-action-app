@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
 import { Text, View, Button, TouchableHighlight, ScrollView, StyleSheet } from "react-native";
 import DonateCard from '../Card';
-import AmbassadorsTopBarNavigator from '../AmbassadorsTopNavigator';
+
 import ContactCard from '../ContactCard';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 export default function Ambassadors() {
     return (
       
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
-            <View style = {{ paddingHorizontal: 20 }}>
-            <View style={{ height: 200, backgroundColor: "#FFF" }} />
-            <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 24, alignSelf: 'flex-start', marginBottom: 8, marginTop: 8 }}>
+        
+            <View style = {{ paddingHorizontal: 10 }}>
+            <MapView 
+            style={{height: '50%', width: '100%', paddingBottom: 0}}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            />
+            <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 24, alignSelf: 'flex-start', paddingBottom: 2, marginTop: 8 }}>
                     {"Your Location"}
                 </Text>
-            <AmbassadorsTopBarNavigator />
+            
             
             
             </View>
-        </ScrollView>
+        
         
     );
 }
