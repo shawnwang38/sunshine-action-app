@@ -25,9 +25,15 @@ import Home from './src/screens/Home';
 import Donate from './src/screens/Donate';
 import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
-import Calendar from './src/screens/Calendar';
+import Account from './src/screens/Account';
+import UselessTextInput from './src/screens/Login';
 import News from './src/screens/News';
-import TopBarNavigator from './src/TopNavigation';
+import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
+import Ambassadors from './src/screens/Ambassadors';
+import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
+import AccountSettings from './src/screens/AccountSettings';
+import EventDetails from './src/screens/EventDetails';
+import AccountsBarNavigator from './src/AccountsNavigator';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY7mnxC1Qt3UpOENwPTPmUzGalU-FZjpg",
@@ -54,8 +60,10 @@ function DiscoverScreen() {
     
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       
-      <Header text = 'Discover (unfinished)' />
-      <TopBarNavigator />
+      <Header text='Discover' />
+      <DiscoverTopBarNavigator />
+      
+      
     </SafeAreaView>
   );
 }
@@ -77,9 +85,43 @@ function DonateScreen() {
 }
 function AccountScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Account!</Text>
-    </View>
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Account' />
+      <Account/>
+      <AccountsBarNavigator/>
+    </SafeAreaView>
+  );
+}
+function AccountSettingsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text = 'Account Settings' />
+      <AccountSettings />
+    </SafeAreaView>
+  );
+}
+function LoginScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      
+      <UselessTextInput />
+    </SafeAreaView>
+  );
+}
+function AmbassadorsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text="Find an Ambassador" />
+      <Ambassadors />
+    </SafeAreaView>
+  );
+}
+function EventDetailsScreen() {
+  return (
+    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text="Event Details" />
+      <EventDetails />
+    </SafeAreaView>
   );
 }
 

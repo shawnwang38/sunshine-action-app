@@ -1,7 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
+import Ambassadors from './screens/Ambassadors';
 
 const SIZE = 40;
+
+function AmbassadorsScreen() {
+    return (
+        <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+      <Header text="Find an Ambassador" />
+      <Ambassadors />
+    </SafeAreaView>
+    )
+}
+
 
 export default function Header(props) {
     return (
@@ -10,9 +21,16 @@ export default function Header(props) {
             <View style = {{flexGrow: 1}}>
                 <Text style = {{fontFamily: 'OpenSans_700Bold', textAlign: 'center', fontSize: 16 }}>
                     {props.text.toUpperCase()}
+                
+                
                 </Text>
+                
             </View>
-            <View style = {{width: SIZE}} />
+            
+            <TouchableOpacity >
+                <Image source={require('./../assets/ambassadorsymbol.png')} style={{ height: 20, width: 23 }} onPress={AmbassadorsScreen}/>
+            </TouchableOpacity>
+            
         </View>
     );
 }
