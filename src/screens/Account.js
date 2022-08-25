@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AccountsBarNavigator from '../AccountsNavigator';
 import { useNavigation } from 'react-navigation';
 import accountStackNav from '../../App';
-import App from '../../App';
+import AccountStack from '../../App';
 
 
 export default function Account(props, { navigation, route }) {
@@ -25,8 +25,9 @@ export default function Account(props, { navigation, route }) {
                 <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'grey', fontSize: 15, marginBottom: 6, paddingRight: 40 }}>Member Since DD/MM/YY</Text>
               </View>
               <View style = {{ flexDirection: 'row', backgroundColor: 'transparent' }}>
-                <Button onPress={() => navigation.navigate('AccountSettings')} title="set"/>
-                <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.navigate("Settings")}} >
+                
+                <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.navigate("Account.")}} >
+                <Button title="pain" onPress={() => {navigation.navigate("AccountSettings")}} />
                   <View style = {{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'orange', padding: 10 }}>
                     <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'white', fontSize: 15 }}>Account Settings</Text>
                   </View>

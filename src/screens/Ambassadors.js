@@ -13,7 +13,7 @@ export default function Ambassadors() {
         
             <View style = {{ paddingHorizontal: 10 }}>
             <MapView 
-            style={{height: '50%', width: '100%', paddingBottom: 0}}
+            style={{height: '50%', width: '100%', marginBottm: 0}}
             provider={PROVIDER_GOOGLE}
             showsUserLocation={true}
             />
