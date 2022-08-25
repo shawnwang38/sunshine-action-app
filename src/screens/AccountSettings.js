@@ -5,21 +5,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AccountModal from './AccountModal';
 
-/*
-Button navigation to account settings, temporarily removed
-<Button title="Account Settings" onPress={() => navigation.navigate('Account Settings')} />
-*/
+
 export default function AccountSettings({ navigation, route }) {
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
             <View style = {{ paddingHorizontal: 20, alignItems: 'center', paddingVertical: 20 }}>
-                <AccountModal title="Edit Username" field="Username" />
+                <AccountModal title="Edit Username" field="Username" text="Enter new username:" />
                 <View style={styles.space} />
-                <AccountModal title="Edit Password" field="Password" />
+                <AccountModal title="Edit Password" field="Password" text="Enter new password:" />
                 <View style={styles.space} />
-                <AccountModal title="Edit Location" field="City, State/Province, Country" />
+                <AccountModal title="Edit Location" field="City, State/Province, Country" text="Enter City, State/Province, Country" />
                 <View style={styles.space} />
-                <AccountModal title="Edit Email Address" field="email@email.com" />
+                <AccountModal title="Edit Email Address" field="email@email.com" text="Enter new email address:" />
                 <View style={styles.space} />
                 <AccountModal title="Notification Preferences" />
                 

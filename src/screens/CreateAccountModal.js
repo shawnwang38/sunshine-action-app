@@ -4,7 +4,7 @@ import { Modal, Text, Button, TouchableHighlight, Image, View, StyleSheet, TextI
 
 //this is a basic modal component which takes in text and title for a button (when clicked opens the modal) 
 
-class AccountModal extends Component {
+class CreateAccountModal extends Component {
     state = {
         modalVisible: false,
     }
@@ -18,14 +18,27 @@ class AccountModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                        <Text>{this.props.text}</Text>
+                        <View style = {{height: 30}} />
+                        <Text>Enter a valid email:</Text>
                         <TextInput
                             style={styles.input}
                             
                             
-                            placeholder={this.props.field}
-                            keyboardType="numeric"
+                            placeholder={"Enter a valid email"}
+                            keyboardType="alphabetical"
                             />
+                        <Text>Enter a strong password:</Text>
+                        <TextInput
+                            style={styles.input}
+                            
+                            
+                            placeholder={"Enter a strong password"}
+                            keyboardType="alphabetical"
+                            />
+                            <Text>By creating an account, you agree to the terms and conditions.</Text>
+                            <TouchableHighlight>
+                                    <Text style = {styles.close}>Create account</Text>
+                            </TouchableHighlight>
                             <TouchableHighlight onPress = {() => {
                                 this.toggleModal(!this.state.modalVisible)}}>
                                     <Text style = {styles.close}>Close</Text>
@@ -34,17 +47,26 @@ class AccountModal extends Component {
                     </Modal>
                     
                     
-                    <Button title={this.props.title} color="coral" onPress = {() => {this.toggleModal(true)}} />
+                    <Button title={"Create New Account"} color="coral" onPress = {() => {this.toggleModal(true)}} />
                     
             </View>
         )
     }
 }
-export default AccountModal
+export default CreateAccountModal
 
 
 
 const styles = StyleSheet.create ({
+    input: {
+          height: 40,
+          margin: 12,
+          borderWidth: 1,
+          padding: 10,
+          marginLeft: 70,
+          marginRight: 70,
+          backgroundColor: "white",
+        },
     container: {
        alignItems: 'center',
        backgroundColor: '#FFF7E3',
@@ -91,7 +113,6 @@ const styles = StyleSheet.create ({
     
         input: {
           height: 40,
-          width: 300,
           margin: 12,
           borderWidth: 1,
           padding: 10,

@@ -23,6 +23,12 @@ export default function Donate() {
             <ModalDisplay text="To make a donation via GoGetFunding, visit gogetfunding.com." img={require('./../../assets/gogetfundingbutton.png')} />
                 <ItemDonationModal />
             </ScrollView>
+            <ScrollView horizontal pagingEnabled contentContainerStyle={{ flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 20 }}>
+            <ModalDisplay text="To make a donation via cheque, please provide a crossed cheque with payee 'SUNSHINE ACTION Ltd.' Please attach the donor’s name, contact telephone and complete address for tax-deductible receipt.
+
+Sunshine Action has the following mailing address: Room D, 13/F Wing Kin Industrial Building, 4-6 Wing Kin Road, Kwai Chung." img={require('./../../assets/chequebutton.png')} />
+            <ModalDisplay text="To make a donation via Stripe, visit https://buy.stripe.com/4gw9B42SBeNQayc9AA." img={require('./../../assets/stripebutton.png')} />
+            </ScrollView>
             
             </View>
         </ScrollView>
@@ -30,52 +36,6 @@ export default function Donate() {
     );
 }
 
-
-/*
-const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
-    },
-    modalView: {
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      padding: 35,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5
-    },
-    button: {
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2
-    },
-    buttonOpen: {
-      backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-      backgroundColor: "#2196F3",
-    },
-    textStyle: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center"
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: "center"
-    }
-  });
-*/
 
 const styles = StyleSheet.create({
   container: {

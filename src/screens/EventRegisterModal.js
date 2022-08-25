@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, Text, Button, TouchableHighlight, Image, View, StyleSheet, TextInput } from "react-native";
+import { Modal, Text, Button, TouchableHighlight, TouchableOpacity, Image, View, StyleSheet, TextInput, Ionicons } from "react-native";
 
 
 //this is a basic modal component which takes in text and title for a button (when clicked opens the modal) 
 
-class AccountModal extends Component {
+class EventRegisterModal extends Component {
     state = {
         modalVisible: false,
     }
@@ -18,12 +18,11 @@ class AccountModal extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
-                        <Text>{this.props.text}</Text>
                         <TextInput
                             style={styles.input}
                             
                             
-                            placeholder={this.props.field}
+                            placeholder="Enter the total number of volunteers you would like to sign up"
                             keyboardType="numeric"
                             />
                             <TouchableHighlight onPress = {() => {
@@ -34,13 +33,18 @@ class AccountModal extends Component {
                     </Modal>
                     
                     
-                    <Button title={this.props.title} color="coral" onPress = {() => {this.toggleModal(true)}} />
+                    <TouchableOpacity activeOpacity={0.5}>
+                        <View style = {{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'orange', padding: 5 }}>
+                            <Ionicons name="person-add-outline" size={16} />
+                            <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'white'}}>Register</Text>
+                        </View>
+                        </TouchableOpacity>
                     
             </View>
         )
     }
 }
-export default AccountModal
+export default EventRegisterModal
 
 
 
@@ -91,7 +95,6 @@ const styles = StyleSheet.create ({
     
         input: {
           height: 40,
-          width: 300,
           margin: 12,
           borderWidth: 1,
           padding: 10,

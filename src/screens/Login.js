@@ -1,6 +1,7 @@
 import React from "react";
 import { ActivityIndicator, KeyboardAvoidingView, SafeAreaView, View, StyleSheet, TextInput, Text, Image, Button, Pressable, TouchableOpacity } from "react-native";
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import CreateAccountModal from "./CreateAccountModal";
 
 const Login = (props) => {
   const [email, onChangeEmail] = React.useState("");
@@ -67,7 +68,8 @@ const Login = (props) => {
         </View>
         <View style = {{ marginTop: 20, marginBottom: 50, justifyContent: 'center', alignItems: 'center' }}>
           <Text style = {{ fontSize: 16 }}>No account yet?</Text>
-          <Button title="Register" color="cornflowerblue" disabled={loading} />
+          <CreateAccountModal />
+          
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
