@@ -1,7 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { getFunctions, httpsCallable } from "firebase/functions";
+import { getStorage } from "firebase/storage";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,6 +31,9 @@ import Discover from './src/screens/Discover';
 import Events from './src/screens/Events';
 import Account from './src/screens/Account';
 import Login from './src/screens/Login';
+import Register from './src/screens/Register';
+import Onboarding from './src/screens/Onboarding';
+import Verification from "./src/screens/Verification";
 import News from './src/screens/News';
 import DiscoverTopBarNavigator from './src/DiscoverTopNavigator';
 import Ambassadors from './src/screens/Ambassadors';
@@ -50,11 +55,16 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+const functions = getFunctions(undefined, "asia-east2");
+const getRegisterStatus = httpsCallable(functions, "getRegisterStatus");
+const updateUserInfo = httpsCallable(functions, "updateUserInfo");
+const getEvents = httpsCallable(functions, "getEvents");
+
 function HomeScreen() {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Home' auth = {auth} />
-      <Home />
+      <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} />
     </SafeAreaView>
   );
 }
@@ -105,7 +115,22 @@ function AccountSettingsScreen() {
 }
 function LoginScreen({ navigation }) {
   return (
-      <Login style = {styles.container} auth = {auth} navigation = {navigation} />
+      <Login style = {styles.container} auth = {auth} navigation = {navigation} getRegisterStatus={getRegisterStatus} />
+  );
+}
+function RegisterScreen({ navigation }) {
+  return (
+      <Register style = {styles.container} auth = {auth} navigation = {navigation} />
+  );
+}
+function OnboardingScreen({ navigation }) {
+  return (
+      <Onboarding style = {styles.container} auth = {auth} navigation = {navigation} getRegisterStatus={getRegisterStatus} updateUserInfo={updateUserInfo} />
+  );
+}
+function VerificationScreen({ navigation }) {
+  return (
+      <Verification style = {styles.container} auth = {auth} navigation = {navigation} getRegisterStatus={getRegisterStatus} />
   );
 }
 function AmbassadorsScreen() {
@@ -126,14 +151,19 @@ function EventDetailsScreen() {
 }
 
 const auth = getAuth();
+const firestore = getFirestore();
+const storage = getStorage();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Tabs({ navigation }) {
-  onAuthStateChanged(auth, user => {
-    if (!user) {
-      navigation.navigate("Login");
-    }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (!user) {
+        navigation.navigate("Login");
+      }
+    });
+    return unsubscribe;
   });
   return (
     <Tab.Navigator
@@ -171,14 +201,15 @@ function Tabs({ navigation }) {
   )
 }
 export default function App() {
+  const SCREENS = ["Login", "Onboarding", "Verification", "Tabs"];
   const [status, onChangeStatus] = useState(null);
   const rootNav = useRef(null);
   onAuthStateChanged(auth, user => {
-    if (user) {
-      onChangeStatus(true);
-    } else {
-      onChangeStatus(false);
-    }
+    getRegisterStatus().then((s) => {
+      onChangeStatus(s.data.status);
+    }).catch(() => {
+      onChangeStatus(0);
+    });
   });
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
@@ -192,10 +223,13 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar barStyle='black' />
       <NavigationContainer ref = {rootNav}>
-        <Stack.Navigator initialRouteName={ status ? "Tabs" : "Login" }>
+        <Stack.Navigator initialRouteName={ SCREENS[status] }>
           <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={AccountSettings} />
+          <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Verification" component={VerificationScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
