@@ -9,11 +9,12 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 export default function Ambassadors() {
     return (
-      
+      <View>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
         
-            <View style = {{ paddingHorizontal: 10 }}>
+            <View style = {{ paddingHorizontal: 10, backgroundColor: "#FFF7E3" }}>
             <MapView 
-            style={{height: '50%', width: '100%', marginBottm: 0}}
+            style={{height: 250, width: '100%', marginBottm: 0}}
             provider={PROVIDER_GOOGLE}
             showsUserLocation={true}
             />
@@ -23,6 +24,8 @@ export default function Ambassadors() {
             
             
             
+            </View>
+            </ScrollView>
             </View>
         
         

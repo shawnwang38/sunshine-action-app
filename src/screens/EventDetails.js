@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet } from "react-native";
 import EventDetailsCard from '../EventDetailsCard';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import EventRegisterModal from './EventRegisterModal';
 
 
 export default function EventDetails() {
