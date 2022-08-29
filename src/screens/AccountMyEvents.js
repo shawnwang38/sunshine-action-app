@@ -3,8 +3,8 @@ import Card from "../Card";
 
 export default function MyEvents() {
     return(
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style = {{ paddingRight: 170 }}>
+        <ScrollView showsVerticalScrollIndicator={false} paddingLeft={10}>
+            <View style = {{ paddingRight: 10 }}>
                 <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
                     <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'grey', fontSize: 15, paddingLeft: 10 }}>Upcoming Events</Text>
                 </View>

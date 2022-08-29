@@ -41,6 +41,7 @@ import AmbassadorsTopBarNavigator from './src/AmbassadorsTopNavigator';
 import AccountSettings from './src/screens/AccountSettings';
 import EventDetails from './src/screens/EventDetails';
 import AccountsBarNavigator from './src/AccountsNavigator';
+import MyEvents from "./src/screens/AccountMyEvents";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { clickProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 
@@ -112,7 +113,7 @@ function AccountScreen() {
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Account' />
       <Account/>
-      <AccountsBarNavigator/>
+      <MyEvents/>
     </SafeAreaView>
   );
 }

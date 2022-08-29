@@ -14,7 +14,6 @@ export default function Account(props, { navigation, route }) {
   return(
     
     <View>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
         <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
           <View style={{ alignSelf: "left" }}>
             <Image source={require("./../../assets/logo.png")} style={styles.profileImage} resizeMode="center"></Image>
@@ -37,13 +36,15 @@ export default function Account(props, { navigation, route }) {
         </View>
         <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
           <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'black', fontSize: 30, paddingLeft: 80 }}>XX</Text>
-          <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'black', fontSize: 30, paddingLeft: 160 }}>$XX</Text>
+          <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'black', fontSize: 30, paddingLeft: 160 }}>XX</Text>
         </View>
         <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
           <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'grey', fontSize: 15, paddingLeft: 20 }}>Total Hours Volunteered</Text>
-          <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'grey', fontSize: 15, paddingLeft: 82 }}>Total Donated</Text>
+          <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'grey', fontSize: 15, paddingLeft: 40 }}>Events volunteered for</Text>
         </View>
-      </ScrollView>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
     </View>
   );
 }
