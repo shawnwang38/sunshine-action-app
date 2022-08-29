@@ -60,6 +60,7 @@ const functions = getFunctions(undefined, "asia-east2");
 const getRegisterStatus = httpsCallable(functions, "getRegisterStatus");
 const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 const getEvents = httpsCallable(functions, "getEvents");
+const registerEvent = httpsCallable(functions, "registerEvent");
 
 const HomeStack = createNativeStackNavigator();
 function HomeStackScreen() {
@@ -151,11 +152,11 @@ function AmbassadorsScreen() {
     </SafeAreaView>
   );
 }
-function EventDetailsScreen({ route }) {
+function EventDetailsScreen({ navigation, route }) {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text="Event Details" />
-      <EventDetails event = {route.params.event} img = {route.params.img} user = {route.params.user} />
+      <EventDetails navigation = {navigation} event = {route.params.event} img = {route.params.img} user = {route.params.user} registerEvent = {registerEvent} />
     </SafeAreaView>
   );
 }

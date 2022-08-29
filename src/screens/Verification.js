@@ -11,12 +11,10 @@ const Verification = (props) => {
     });
   }
   function resend() {
-    onChangeInvalid("");
     onChangeLoading(true);
     sendEmailVerification(props.auth.currentUser).then(() => {
         onChangeLoading(false);
     }).catch((err) => {
-        onChangeInvalid(err.message);
         onChangeLoading(false);
     });
   }
