@@ -42,6 +42,7 @@ import AccountSettings from './src/screens/AccountSettings';
 import EventDetails from './src/screens/EventDetails';
 import AccountsBarNavigator from './src/AccountsNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { clickProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY7mnxC1Qt3UpOENwPTPmUzGalU-FZjpg",
@@ -60,11 +61,20 @@ const getRegisterStatus = httpsCallable(functions, "getRegisterStatus");
 const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 const getEvents = httpsCallable(functions, "getEvents");
 
-function HomeScreen() {
+const HomeStack = createNativeStackNavigator();
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
+      <HomeStack.Screen component = {HomeScreen} name="Home" />
+      <HomeStack.Screen component = {EventDetailsScreen} name="Event Details" />
+    </HomeStack.Navigator>
+  )
+}
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'Home' auth = {auth} />
-      <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} />
+        <Header text = 'Home' auth = {auth} />
+        <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
     </SafeAreaView>
   );
 }
@@ -141,11 +151,11 @@ function AmbassadorsScreen() {
     </SafeAreaView>
   );
 }
-function EventDetailsScreen() {
+function EventDetailsScreen({ route }) {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text="Event Details" />
-      <EventDetails />
+      <EventDetails event = {route.params.event} img = {route.params.img} user = {route.params.user} />
     </SafeAreaView>
   );
 }
@@ -170,7 +180,7 @@ function Tabs({ navigation }) {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Home') {
+          if (route.name === 'HomeStack') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
           } else if (route.name === 'Discover') {
             iconName = focused ? 'ios-compass' : 'ios-compass-outline';
@@ -192,7 +202,7 @@ function Tabs({ navigation }) {
       })}
       sceneContainerStyle = {styles.container}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="HomeStack" component={HomeStackScreen} />
       <Tab.Screen name="Discover" component={DiscoverScreen} />
       <Tab.Screen name="News" component={NewsScreen} />
       <Tab.Screen name="Donate" component={DonateScreen} />
@@ -204,11 +214,17 @@ export default function App() {
   const SCREENS = ["Login", "Onboarding", "Verification", "Tabs"];
   const [status, onChangeStatus] = useState(null);
   const rootNav = useRef(null);
-  onAuthStateChanged(auth, user => {
-    getRegisterStatus().then((s) => {
-      onChangeStatus(s.data.status);
-    }).catch(() => {
-      onChangeStatus(0);
+  useEffect(() => {
+    return onAuthStateChanged(auth, user => {
+      getRegisterStatus().then((s) => {
+        if (status != s.data.status) {
+          onChangeStatus(s.data.status);
+        }
+      }).catch(() => {
+        if (status != 0) {
+          onChangeStatus(0);
+        }
+      });
     });
   });
   let [fontsLoaded] = useFonts({

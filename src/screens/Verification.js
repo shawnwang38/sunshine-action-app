@@ -22,7 +22,7 @@ const Verification = (props) => {
   }
   React.useEffect(() => {
     const unsubscribe = onIdTokenChanged(props.auth, user => {
-        if (user.emailVerified) {
+        if (user && user.emailVerified) {
             props.navigation.navigate("Tabs");
         }
     });

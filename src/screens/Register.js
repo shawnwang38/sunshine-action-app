@@ -63,7 +63,7 @@ const Register = (props) => {
           returnKeyType="done"
           editable = {!loading ? true : false}
         />
-        <View style = {{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
+        <View style = {{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 20, marginHorizontal: 20 }}>
             <Checkbox value = {checked} onValueChange={onChangeChecked} color = "cornflowerblue" />
             <Text style = {{ marginLeft: 10 }}>{"I agree to the Terms & Conditions and Privacy Policy."}</Text>
         </View>
