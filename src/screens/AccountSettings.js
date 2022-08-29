@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Image, Button, View, ScrollView, Alert, Modal, StyleSheet, Pressable } from "react-native";
+import { Text, Switch, Image, Button, View, ScrollView, Alert, Modal, StyleSheet, Pressable } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,8 +18,10 @@ export default function AccountSettings({ navigation, route }) {
                 <View style={styles.space} />
                 <AccountModal title="Edit Email Address" field="email@email.com" text="Enter new email address:" />
                 <View style={styles.space} />
-                <AccountModal title="Notification Preferences" />
-                
+                <View style = {{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: 20 }}>
+                    <Switch trackColor={{ false: "#767577", true: "#81b0ff" }} thumbColor="cornflowerblue" ios_backgroundColor="#3e3e3e" />
+                    <Text style = {{ marginLeft: 10 }}>I agree to receive notifications.</Text>
+                </View>
             </View>
         </ScrollView>
         
