@@ -12,7 +12,7 @@ export default function Home(props) {
     useEffect(() => {
         if (props.auth.currentUser) {
             getDoc(doc(props.firestore, "accounts", props.auth.currentUser.uid)).then(ad => {
-                if (ad.data().first != name[0]) {
+                if (name[0] === null) {
                     setName([ad.data().first, ad.data().last]);
                     props.getEvents().then(es => {
                         let now = new Date();
@@ -26,7 +26,7 @@ export default function Home(props) {
                             if (registered.length) {
                                 eventList = eventList.filter(e => e.id != registered[0]);
                             }
-                            setUpcoming(eventList.map((e, n) => <EventCard key = {n} event = {e} height={125} storage = {props.storage} navigation = {props.navigation} user = {name} style = {eventList[n + 1] ? {minWidth: 150, marginRight: 20} : {minWidth: 150}} />));
+                            setUpcoming(eventList.map((e, n) => <EventCard key = {n} event = {e} height={125} storage = {props.storage} navigation = {props.navigation} user = {[ad.data().first, ad.data().last]} style = {eventList[n + 1] ? {minWidth: 150, marginRight: 20} : {minWidth: 150}} />));
                         }
                     });
                 }
