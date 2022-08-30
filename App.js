@@ -62,6 +62,7 @@ const getRegisterStatus = httpsCallable(functions, "getRegisterStatus");
 const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 const getEvents = httpsCallable(functions, "getEvents");
 const registerEvent = httpsCallable(functions, "registerEvent");
+const getPosts = httpsCallable(functions, "getPosts");
 
 const HomeStack = createNativeStackNavigator();
 function HomeStackScreen({ navigation }) {
@@ -103,10 +104,12 @@ function DiscoverScreen({ navigation }) {
 }
 function NewsScreen() {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'News' />
-      <News />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text = 'News' />
+        <News getPosts = {getPosts} storage = {storage} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 function DonateScreen() {

@@ -1,14 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import EventCard from './EventCard.js';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { doc, getDoc } from "firebase/firestore";
 
 
-function UpcomingScreen({ route }) {
-    useEffect(() => {}, [route.params.upcoming]);
+function UpcomingScreen({ navigation, route }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+    const ctx = React.useContext(Context);
+    function refresh() {
+        setRefreshing(true);
+        ctx.getEvents().then(es => {
+            let now = new Date();
+            let eventList = Object.keys(es.data).filter(e => es.data[e].start > now.getTime()).sort((b, a) => es.data[a].start - es.data[b].start).map(e => es.data[e]);
+            navigation.setParams({ upcoming: eventList.map((e, n) => <EventCard location = {true} key = {n} event = {e} height={200} storage = {ctx.storage} navigation = {ctx.navigation} user = {ctx.name} />) });
+            setRefreshing(false);
+        });
+    }
     return (
         <View
             style={{
@@ -18,7 +28,7 @@ function UpcomingScreen({ route }) {
                 backgroundColor: "#FFF7E3"
             }}
         >
-            <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }} refreshControl = {<RefreshControl refreshing = {refreshing} onRefresh = {refresh} />}>
                 <View style = {{ width: 350, paddingHorizontal: 10, paddingVertical: 40, justifyContent: 'center',  fontFamily: 'OpenSans_700Bold', fontSize: 10, backgroundColor: 'transparent',}}>
                     {route.params.upcoming}
                 </View>
@@ -27,8 +37,19 @@ function UpcomingScreen({ route }) {
     )
 }
 
-function PastScreen({ route }) {
-    useEffect(() => {}, [route.params.past]);
+function PastScreen({ navigation, route }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+    const ctx = React.useContext(Context);
+    function refresh() {
+        setRefreshing(true);
+        ctx.getEvents().then(es => {
+            console.log(es.data);
+            let now = new Date();
+            let eventList = Object.keys(es.data).filter(e => es.data[e].start <= now.getTime()).sort((b, a) => es.data[a].start - es.data[b].start).map(e => es.data[e]);
+            navigation.setParams({ past: eventList.map((e, n) => <EventCard location = {true} key = {n} event = {e} height={200} storage = {ctx.storage} navigation = {ctx.navigation} user = {ctx.name} />) });
+            setRefreshing(false);
+        });
+    }
     return (
         <View
             style={{
@@ -38,7 +59,7 @@ function PastScreen({ route }) {
                 backgroundColor: "#FFF7E3"
             }}
         >
-            <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }} refreshControl = {<RefreshControl refreshing={refreshing} onRefresh={refresh} />}>
                 <View style = {{ width: 350, paddingHorizontal: 10, paddingVertical: 40, justifyContent: 'center',  fontFamily: 'OpenSans_700Bold', fontSize: 10, backgroundColor: 'transparent',}}>
                     {route.params.past}
                 </View>
@@ -48,30 +69,31 @@ function PastScreen({ route }) {
 }
 
 const Tab = createMaterialTopTabNavigator();
+const Context = React.createContext(() => {});
 
 function MyTabs(props) {
     return (
-        <Tab.Navigator 
-            initialRouteName="Events"
-            screenOptions={{
-                tabBarLabelStyle: { fontSize: 12, fontFamily: 'OpenSans_600SemiBold' },
-                tabBarStyle: { backgroundColor: '#FFF7E3' },
-                tabBarIndicatorStyle: { backgroundColor: 'orange' },
-            }}
-        >
-            <Tab.Screen
-                name="Upcoming"
-                component = {UpcomingScreen}
-                initialParams = {{ upcoming: props.upcoming }}
-                options={{ tabBarLabel: 'Upcoming'}}
-            />
-            <Tab.Screen
-                name="Past"
-                component = {PastScreen}
-                initialParams = {{ past: props.past }}
-                options={{ tabBarLabel: 'Past'}}
-            />
-        </Tab.Navigator>
+            <Tab.Navigator 
+                initialRouteName="Events"
+                screenOptions={{
+                    tabBarLabelStyle: { fontSize: 12, fontFamily: 'OpenSans_600SemiBold' },
+                    tabBarStyle: { backgroundColor: '#FFF7E3' },
+                    tabBarIndicatorStyle: { backgroundColor: 'orange' },
+                }}
+            >
+                <Tab.Screen
+                    name="Upcoming"
+                    component = {UpcomingScreen}
+                    initialParams = {{ upcoming: props.upcoming }}
+                    options={{ tabBarLabel: 'Upcoming'}}
+                />
+                <Tab.Screen
+                    name="Past"
+                    component = {PastScreen}
+                    initialParams = {{ past: props.past }}
+                    options={{ tabBarLabel: 'Past'}}
+                />
+            </Tab.Navigator>
     )
 }
 
@@ -102,8 +124,10 @@ export default function DiscoverTopBarNavigator(props) {
         }
     });
     return (
-        <NavigationContainer independent={true}>
-            {loading ? null : <MyTabs upcoming = {upcoming} past = {past} />}
-        </NavigationContainer>
+        <Context.Provider value = {{ getEvents: props.getEvents, storage: props.storage, navigation: props.navigation, name: name }}>
+            <NavigationContainer independent={true}>
+                {loading ? null : <MyTabs getEvents = {props.getEvents} upcoming = {upcoming} past = {past} />}
+            </NavigationContainer>
+        </Context.Provider>
     )
 }

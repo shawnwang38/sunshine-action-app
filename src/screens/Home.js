@@ -34,6 +34,7 @@ export default function Home(props) {
         }
     });
     function refresh() {
+        setRefreshing(true);
         getDoc(doc(props.firestore, "accounts", props.auth.currentUser.uid)).then(ad => {
             setName([ad.data().first, ad.data().last]);
             props.getEvents().then(es => {
@@ -50,6 +51,7 @@ export default function Home(props) {
                     eventList = eventList.filter(e => e.id != registered[0]);
                 }
                 setUpcoming(eventList.map((e, n) => <EventCard key = {n} event = {e} height={125} storage = {props.storage} navigation = {props.navigation} user = {name} style = {eventList[n + 1] ? {minWidth: 150, marginRight: 20} : {minWidth: 150}} />));
+                setRefreshing(false);
             });
         });
     }

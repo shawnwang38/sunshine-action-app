@@ -88,7 +88,8 @@ export default function EventDetails(props) {
                 <View style = {{ padding: 15, paddingRight: 15 }}>
                     <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                         <Ionicons name="ios-calendar-outline" size={16} />
-                        <Text style = {{ fontFamily: 'OpenSans_400Regular', marginLeft: 6, flexGrow: 1 }}>{startDate + " - " + endDate}</Text>
+                        <Text style = {{ fontFamily: 'OpenSans_400Regular', marginLeft: 12, flexGrow: 1, maxWidth: 155, marginRight: 15 }}>{startDate + " - " + endDate}</Text>
+                        <View style = {{ flexGrow: 1 }} />
                         {now.getTime() < props.event.start ? <TouchableOpacity activeOpacity={0.5} onPress={click}>
                             <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: unregister ? '#e0bc89' : 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
                                 {unregister ? <ActivityIndicator color = "white" /> : <Ionicons name={props.event.registered ? "checkmark-outline" : "person-add-outline"} size={20} color='white' />}
