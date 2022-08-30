@@ -24,7 +24,7 @@ const Login = (props) => {
       onChangeLoading(true);
       signInWithEmailAndPassword(props.auth, email, password).then(() => {
         props.getRegisterStatus().then((s) => {
-          props.navigation.navigate(SCREENS[s.data.status]);
+          props.navigation.navigate(SCREENS[s.data.status], { screen: "HomeStack" });
         }).catch((err) => {
           onChangeLoading(false);
           console.log(err);
