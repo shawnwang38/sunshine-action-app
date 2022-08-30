@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Ambassadors from './screens/Ambassadors';
 import { signOut } from 'firebase/auth';
 
@@ -16,21 +17,22 @@ function AmbassadorsScreen() {
 
 
 export default function Header(props) {
+    function BackButton() {
+        return (
+            <TouchableOpacity activeOpacity = {0.5} onPress = {() => { props.navigation.goBack() }}>
+                <View style = {{width: SIZE}}><Ionicons name = "arrow-back-outline" size = {SIZE/1.5} /></View>
+            </TouchableOpacity>
+        )
+    }
     return (
         <View style={styles.header}>
-            <Image source={require('./../assets/logo.png')} style={{ height: SIZE, width: SIZE }} />
+            {props.back ? <BackButton /> : <Image source={require('./../assets/logo.png')} style={{ height: SIZE, width: SIZE }} />}
             <View style = {{flexGrow: 1}}>
                 <Text style = {{fontFamily: 'OpenSans_700Bold', textAlign: 'center', fontSize: 16 }}>
                     {props.text.toUpperCase()}
-                
-                
                 </Text>
-                
             </View>
-            <Button title = "Sign Out" onPress = {() => { signOut(props.auth) }}></Button>
-            <TouchableOpacity >
-                <Image source={require('./../assets/ambassadorsymbol.png')} style={{ height: 20, width: 23 }} onPress={AmbassadorsScreen}/>
-            </TouchableOpacity>
+            <View style = {{width: SIZE}} />
             
         </View>
     );

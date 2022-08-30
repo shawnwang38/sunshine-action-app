@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableWithoutFeedback, Text, View, ScrollView, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableHighlight, Keyboard, Touchable } from "react-native";
+import { TouchableWithoutFeedback, Text, View, ScrollView, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableHighlight, Keyboard, Touchable, ActivityIndicator } from "react-native";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EventRegisterModal from './EventRegisterModal';
@@ -22,6 +22,35 @@ export default function EventDetails(props) {
     const [modal, setModal] = React.useState(false);
     const [extra, setExtra] = React.useState("0");
     const [unregister, setUnregister] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    function click() {
+        if (props.event.registered) {
+            setUnregister(true);
+            props.registerEvent({ id: props.event.id, extra: Number(extra) }).then(() => {
+                setUnregister(false);
+                props.navigation.reset({ index: 0, routes: [{ name: props.home }] });
+            }).catch(err => {
+                console.log(err);
+                setUnregister(false);
+            });
+        } else {
+            setModal(true);
+        }
+    }
+    function register() {
+        if (!Number.isNaN(Number(extra)) && Number(extra) >= 0) {
+            setLoading(true);
+            props.registerEvent({ id: props.event.id, extra: Number(extra) }).then(() => {
+                setLoading(false);
+                setModal(false);
+                props.navigation.reset({ index: 0, routes: [{ name: props.home }] });
+            }).catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+        }
+    }
+    let now = new Date();
     return (
         <>
             <Modal animationType = {"slide"} transparent = {false}
@@ -39,12 +68,12 @@ export default function EventDetails(props) {
                             <Text style = {{fontSize: 16, marginRight: 10}}>Extra spots to reserve:</Text>
                             <TextInput style = {{borderColor: 'gray', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10, fontSize: 16, borderRadius: 4, width: 50, textAlign: "center"}}
                                 keyboardType="numeric"
-                                value = {extra} onChange={setExtra}
+                                value = {extra} onChangeText={setExtra}
                                 />
                         </View>
-                        <TouchableOpacity disabled = {unregister} activeOpacity={0.5} style = {{marginTop: 30, marginBottom: 10}} onPress={() => setModal(true)}>
-                            <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
-                                <Ionicons name="person-add-outline" size={20} color='white' />
+                        <TouchableOpacity disabled = {loading} activeOpacity={0.5} style = {{marginTop: 30, marginBottom: 10}} onPress={register}>
+                            <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: loading ? '#e0bc89' : 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
+                                {loading ? <ActivityIndicator color="white" /> : <Ionicons name="person-add-outline" size={20} color='white' />}
                                 <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'white', marginLeft: 10, marginRight: 4, fontSize: 16, position: 'relative', top: -1 }}>Register</Text>
                             </View>
                         </TouchableOpacity>
@@ -55,17 +84,18 @@ export default function EventDetails(props) {
                 </TouchableWithoutFeedback>
             </Modal>
             <View style = {{ justifyContent: "stretch" }}>
-                <Image style = {{ maxWidth: "100%", height: 250, resizeMode: "cover" }} source = {props.img} />
+                {props.img ? <Image style = {{ maxWidth: "100%", height: 250, resizeMode: "cover" }} source = {props.img} /> : null}
                 <View style = {{ padding: 15, paddingRight: 15 }}>
                     <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                         <Ionicons name="ios-calendar-outline" size={16} />
-                        <Text style = {{ fontFamily: 'OpenSans_400Regular', marginLeft: 6, flexGrow: 1 }}>{startDate + " - " + endDate}</Text>
-                        <TouchableOpacity activeOpacity={0.5} onPress={() => setModal(true)}>
-                            <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
-                                <Ionicons name={props.event.registered ? "checkmark-outline" : "person-add-outline"} size={20} color='white' />
-                                <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'white', marginLeft: 10, marginRight: 4, fontSize: 16, position: 'relative', top: -1 }}>{props.event.registered ? "Registered" : "Register"}</Text>
+                        <Text style = {{ fontFamily: 'OpenSans_400Regular', marginLeft: 12, flexGrow: 1, maxWidth: 155, marginRight: 15 }}>{startDate + " - " + endDate}</Text>
+                        <View style = {{ flexGrow: 1 }} />
+                        {now.getTime() < props.event.start ? <TouchableOpacity activeOpacity={0.5} onPress={click}>
+                            <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: unregister ? '#e0bc89' : 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
+                                {unregister ? <ActivityIndicator color = "white" /> : <Ionicons name={props.event.registered ? "checkmark-outline" : "person-add-outline"} size={20} color='white' />}
+                                <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'white', marginLeft: 10, marginRight: 4, fontSize: 16, position: 'relative', top: -1 }}>{props.event.registered ? "Registered" + (props.event.extra ? " (+" + props.event.extra + ")" : "") : "Register"}</Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> : null}
                     </View>
                     <Text style = {{ fontFamily: 'OpenSans_600SemiBold', color: 'black', fontSize: 20, marginBottom: 6 }}>{props.event.name}</Text>
                     {props.event.description ? <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'gray', fontSize: 14, marginVertical: 10 }}>{props.event.description}</Text> : null}

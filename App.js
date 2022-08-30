@@ -61,42 +61,55 @@ const functions = getFunctions(undefined, "asia-east2");
 const getRegisterStatus = httpsCallable(functions, "getRegisterStatus");
 const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 const getEvents = httpsCallable(functions, "getEvents");
+const registerEvent = httpsCallable(functions, "registerEvent");
+const getPosts = httpsCallable(functions, "getPosts");
 
 const HomeStack = createNativeStackNavigator();
-function HomeStackScreen() {
+function HomeStackScreen({ navigation }) {
   return (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
       <HomeStack.Screen component = {HomeScreen} name="Home" />
-      <HomeStack.Screen component = {EventDetailsScreen} name="Event Details" />
+      <HomeStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "HomeStack" }} />
     </HomeStack.Navigator>
   )
 }
 function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-        <Header text = 'Home' auth = {auth} />
-        <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+          <Header text = 'Home' auth = {auth} />
+          <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-function DiscoverScreen() {
+const DiscoverStack = createNativeStackNavigator();
+function DiscoverStackScreen({ navigation }) {
   return (
-    
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      
-      <Header text='Discover' />
-      <DiscoverTopBarNavigator />
-      
-      
-    </SafeAreaView>
+    <DiscoverStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
+      <DiscoverStack.Screen component = {DiscoverScreen} name="Discover" />
+      <DiscoverStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "DiscoverStack" }} />
+    </DiscoverStack.Navigator>
+  )
+}
+function DiscoverScreen({ navigation }) {
+  return (
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }} >
+        <Header text='Events' />
+        <DiscoverTopBarNavigator auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 function NewsScreen() {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'News' />
-      <News />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text = 'News' />
+        <News getPosts = {getPosts} storage = {storage} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 function DonateScreen() {
@@ -107,20 +120,32 @@ function DonateScreen() {
     </SafeAreaView>
   );
 }
-function AccountScreen() {
+const AccountStack = createNativeStackNavigator();
+function AccountStackScreen({ navigation }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'Account' />
-      <Account/>
-      <MyEvents/>
-    </SafeAreaView>
+    <AccountStack.Navigator initialRouteName="Account" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
+      <AccountStack.Screen component = {AccountScreen} name="Account" />
+      <AccountStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "AccountStack" }} />
+      <AccountStack.Screen component = {AccountSettingsScreen} name="Account Settings" />
+    </AccountStack.Navigator>
+  )
+}
+function AccountScreen({ navigation }) {
+  return (
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text = 'Account' />
+        <Account auth = {auth} firestore = {firestore} navigation = {navigation} />
+        <MyEvents auth = {auth} firestore = {firestore} navigation = {navigation} getEvents = {getEvents} storage = {storage} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-function AccountSettingsScreen() {
+function AccountSettingsScreen({ navigation }) {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Account Settings' />
-      <AccountSettings />
+      <AccountSettings auth = {auth} firestore = {firestore} navigation = {navigation} updateUserInfo = {updateUserInfo} />
     </SafeAreaView>
   );
 }
@@ -152,12 +177,14 @@ function AmbassadorsScreen() {
     </SafeAreaView>
   );
 }
-function EventDetailsScreen({ route }) {
+function EventDetailsScreen({ navigation, route }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text="Event Details" />
-      <EventDetails event = {route.params.event} img = {route.params.img} user = {route.params.user} />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text="Event Details" back = "true" navigation = {navigation} />
+        <EventDetails home = {route.params.home} navigation = {navigation} event = {route.params.event} img = {route.params.img} user = {route.params.user} registerEvent = {registerEvent} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -171,7 +198,7 @@ function Tabs({ navigation }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (!user) {
-        navigation.navigate("Login");
+        navigation.reset({ index: 0, routes: [{ name: "Login" }] });
       }
     });
     return unsubscribe;
@@ -183,13 +210,13 @@ function Tabs({ navigation }) {
           let iconName;
           if (route.name === 'HomeStack') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
-          } else if (route.name === 'Discover') {
+          } else if (route.name === 'DiscoverStack') {
             iconName = focused ? 'ios-compass' : 'ios-compass-outline';
           } else if (route.name === 'News') {
             iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
           } else if (route.name === 'Donate') {
             iconName = focused ? 'ios-heart' : 'ios-heart-outline';
-          } else if (route.name === 'Account') {
+          } else if (route.name === 'AccountStack') {
             iconName = focused ? 'ios-person' : 'ios-person-outline';
           } 
           
@@ -204,10 +231,10 @@ function Tabs({ navigation }) {
       sceneContainerStyle = {styles.container}
     >
       <Tab.Screen name="HomeStack" component={HomeStackScreen} />
-      <Tab.Screen name="Discover" component={DiscoverScreen} />
+      <Tab.Screen name="DiscoverStack" component={DiscoverStackScreen} />
       <Tab.Screen name="News" component={NewsScreen} />
       <Tab.Screen name="Donate" component={DonateScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="AccountStack" component={AccountStackScreen} />
     </Tab.Navigator>
   )
 }
@@ -240,7 +267,7 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar barStyle='black' />
       <NavigationContainer ref = {rootNav}>
-        <Stack.Navigator initialRouteName={ SCREENS[status] }>
+        <Stack.Navigator initialRouteName={ SCREENS[status] } screenOptions={{ gestureEnabled: false }} >
           <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={AccountSettings} />

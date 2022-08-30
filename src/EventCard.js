@@ -18,17 +18,15 @@ export default function EventCard(props) {
     startDate += ":" + (start.getMinutes() < 10 ? "0" + start.getMinutes() : start.getMinutes());
     endDate += ":" + (end.getMinutes() < 10 ? "0" + end.getMinutes() : end.getMinutes());
     const [img, setImg] = React.useState(null);
-    if (props.event.image) {
-        React.useEffect(() => {
-            getDownloadURL(ref(props.storage, "events/" + props.event.id + "." + props.event.image)).then(url => {
-                setImg({ uri: url });
-            });
+    if (props.event.image && !img) {
+        getDownloadURL(ref(props.storage, "events/" + props.event.id + "." + props.event.image)).then(url => {
+            setImg({ uri: url });
         });
     }
     return (
         <TouchableOpacity 
         activeOpacity={0.5} onPress = {() => props.navigation.navigate("Event Details", { event: props.event, img: img, user: props.user })}>
-            <Card height = {props.height} title = {props.event.name} img = {img} time = {startDate + " - " + endDate} />
+            <Card big = {props.big ? "true" : null} location = {props.location ? props.event.location : null} height = {props.height} title = {props.event.name} img = {props.img != "false" ? img : null} time = {startDate + " - " + endDate} style = {props.style} registered = {props.event.registered && props.check != "false" ? true : false} />
         </TouchableOpacity>
     )
 }

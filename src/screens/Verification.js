@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, ActivityIndicator, KeyboardAvoidingView, SafeAreaView, View, StyleSheet, TextInput, Text, Image, Button, Pressable, TouchableOpacity } from "react-native";
 import { getFunctions, httpsCallable } from "firebase/functions";
-import { signOut, onIdTokenChanged } from "firebase/auth";
+import { signOut, onIdTokenChanged, sendEmailVerification } from "firebase/auth";
 
 const Verification = (props) => {
   const [loading, onChangeLoading] = React.useState(false);
@@ -11,12 +11,10 @@ const Verification = (props) => {
     });
   }
   function resend() {
-    onChangeInvalid("");
     onChangeLoading(true);
     sendEmailVerification(props.auth.currentUser).then(() => {
         onChangeLoading(false);
     }).catch((err) => {
-        onChangeInvalid(err.message);
         onChangeLoading(false);
     });
   }
