@@ -111,11 +111,11 @@ export default function DiscoverTopBarNavigator(props) {
                         let now = new Date();
                         if (upcoming.length == 0) {
                             let eventList = Object.keys(es.data).filter(e => es.data[e].start > now.getTime()).sort((a, b) => es.data[a].start - es.data[b].start).map(e => es.data[e]);
-                            setUpcoming(eventList.map((e, n) => <EventCard location = {true} key = {n} event = {e} height={200} storage = {props.storage} navigation = {props.navigation} user = {[ad.data().first, ad.data().last]} />));
+                            setUpcoming(eventList.map((e, n) => <EventCard big = "true" location = {true} key = {n} event = {e} height={200} storage = {props.storage} navigation = {props.navigation} user = {[ad.data().first, ad.data().last]} />));
                         }
                         if (past.length == 0) {
                             let eventList = Object.keys(es.data).filter(e => es.data[e].start <= now.getTime()).sort((b, a) => es.data[a].start - es.data[b].start).map(e => es.data[e]);
-                            setPast(eventList.map((e, n) => <EventCard location = {true} key = {n} event = {e} height={200} storage = {props.storage} navigation = {props.navigation} user = {[ad.data().first, ad.data().last]} />));
+                            setPast(eventList.map((e, n) => <EventCard big = "true" location = {true} key = {n} event = {e} height={200} storage = {props.storage} navigation = {props.navigation} user = {[ad.data().first, ad.data().last]} />));
                         }
                         setLoading(false);
                     });
