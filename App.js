@@ -120,20 +120,32 @@ function DonateScreen() {
     </SafeAreaView>
   );
 }
-function AccountScreen() {
+const AccountStack = createNativeStackNavigator();
+function AccountStackScreen({ navigation }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text = 'Account' />
-      <Account/>
-      <MyEvents/>
-    </SafeAreaView>
+    <AccountStack.Navigator initialRouteName="Account" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
+      <AccountStack.Screen component = {AccountScreen} name="Account" />
+      <AccountStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "AccountStack" }} />
+      <AccountStack.Screen component = {AccountSettingsScreen} name="Account Settings" />
+    </AccountStack.Navigator>
+  )
+}
+function AccountScreen({ navigation }) {
+  return (
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text = 'Account' />
+        <Account auth = {auth} firestore = {firestore} navigation = {navigation} />
+        <MyEvents auth = {auth} firestore = {firestore} navigation = {navigation} getEvents = {getEvents} storage = {storage} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-function AccountSettingsScreen() {
+function AccountSettingsScreen({ navigation }) {
   return (
     <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
       <Header text = 'Account Settings' />
-      <AccountSettings />
+      <AccountSettings auth = {auth} firestore = {firestore} navigation = {navigation} updateUserInfo = {updateUserInfo} />
     </SafeAreaView>
   );
 }
@@ -169,7 +181,7 @@ function EventDetailsScreen({ navigation, route }) {
   return (
     <SafeAreaProvider style = {{flex: 1}}>
       <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-        <Header text="Event Details" />
+        <Header text="Event Details" back = "true" navigation = {navigation} />
         <EventDetails home = {route.params.home} navigation = {navigation} event = {route.params.event} img = {route.params.img} user = {route.params.user} registerEvent = {registerEvent} />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -186,7 +198,7 @@ function Tabs({ navigation }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (!user) {
-        navigation.navigate("Login");
+        navigation.reset({ index: 0, routes: [{ name: "Login" }] });
       }
     });
     return unsubscribe;
@@ -204,7 +216,7 @@ function Tabs({ navigation }) {
             iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
           } else if (route.name === 'Donate') {
             iconName = focused ? 'ios-heart' : 'ios-heart-outline';
-          } else if (route.name === 'Account') {
+          } else if (route.name === 'AccountStack') {
             iconName = focused ? 'ios-person' : 'ios-person-outline';
           } 
           
@@ -222,7 +234,7 @@ function Tabs({ navigation }) {
       <Tab.Screen name="DiscoverStack" component={DiscoverStackScreen} />
       <Tab.Screen name="News" component={NewsScreen} />
       <Tab.Screen name="Donate" component={DonateScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="AccountStack" component={AccountStackScreen} />
     </Tab.Navigator>
   )
 }
@@ -255,7 +267,7 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar barStyle='black' />
       <NavigationContainer ref = {rootNav}>
-        <Stack.Navigator initialRouteName={ SCREENS[status] }>
+        <Stack.Navigator initialRouteName={ SCREENS[status] } screenOptions={{ gestureEnabled: false }} >
           <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={AccountSettings} />

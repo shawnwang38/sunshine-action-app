@@ -65,7 +65,7 @@ export default function Home(props) {
                 { nextEvent ? (
                     <>
                         <Text style={{ fontFamily: 'OpenSans_600SemiBold', fontSize: 16, marginBottom: 15 }}>Your Next Event</Text>
-                        <EventCard event = {nextEvent} height={200} storage={props.storage} navigation={props.navigation} user={name} />
+                        <EventCard big = "true" event = {nextEvent} height={200} storage={props.storage} navigation={props.navigation} user={name} />
                     </>
                 ) : null }
                 {upcoming.length ? <Text style={{ fontFamily: 'OpenSans_600SemiBold', fontSize: 16, marginBottom: 15 }}>Upcoming Events</Text> : null}

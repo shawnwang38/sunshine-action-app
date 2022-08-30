@@ -93,7 +93,7 @@ const News = (props) => {
         <FlatList
         data={posts}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.time}
         onEndReached={loadMore}
         refreshControl = {<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
       />

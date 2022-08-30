@@ -26,7 +26,7 @@ export default function EventCard(props) {
     return (
         <TouchableOpacity 
         activeOpacity={0.5} onPress = {() => props.navigation.navigate("Event Details", { event: props.event, img: img, user: props.user })}>
-            <Card location = {props.location ? props.event.location : null} height = {props.height} title = {props.event.name} img = {img} time = {startDate + " - " + endDate} style = {props.style} registered = {props.event.registered ? true : false} />
+            <Card big = {props.big ? "true" : null} location = {props.location ? props.event.location : null} height = {props.height} title = {props.event.name} img = {props.img != "false" ? img : null} time = {startDate + " - " + endDate} style = {props.style} registered = {props.event.registered && props.check != "false" ? true : false} />
         </TouchableOpacity>
     )
 }

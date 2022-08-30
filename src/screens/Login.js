@@ -68,12 +68,12 @@ const Login = (props) => {
           editable = {!loading ? true : false}
         />
         { invalid ? <Text style = {{ color: "red", textAlign: "center"}}>{invalid}</Text> : null }
-        <View style = {{ marginTop: 20 }}>
+        <View style = {{ marginTop: 20, marginHorizontal: 100 }}>
           { loading ? <ActivityIndicator style = {{marginBottom: 20 }} /> : null }
           <Button title="Login" color="coral" onPress={login} disabled={loading} />
         </View>
         <View style = {{ marginTop: 20, marginBottom: 50, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style = {{ fontSize: 16 }}>No account yet?</Text>
+          <Text style = {{ fontSize: 16, marginBottom: 15 }}>No account yet?</Text>
           <Button title = "Register" color = "cornflowerblue" disabled = {loading} onPress = {() => { props.navigation.navigate("Register") }}>Register</Button>
         </View>
       </KeyboardAvoidingView>

@@ -68,12 +68,12 @@ const Register = (props) => {
             <Text style = {{ marginLeft: 10 }}>{"I agree to the Terms & Conditions and Privacy Policy."}</Text>
         </View>
         { invalid ? <Text style = {{ color: "red", textAlign: "center", marginTop: 20 }}>{invalid}</Text> : null }
-        <View style = {{ marginTop: 20 }}>
+        <View style = {{ marginTop: 20, marginHorizontal: 100 }}>
           { loading ? <ActivityIndicator style = {{marginBottom: 20 }} /> : null }
           <Button title="Register" color="cornflowerblue" onPress={register} disabled={loading} />
         </View>
         <View style = {{ marginTop: 20, marginBottom: 50, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style = {{ fontSize: 16 }}>Have an account?</Text>
+          <Text style = {{ fontSize: 16, marginBottom: 15 }}>Have an account?</Text>
           <Button title = "Login" color = "coral" disabled = {loading} onPress = {() => { props.navigation.navigate("Login") }}></Button>
         </View>
       </KeyboardAvoidingView>
