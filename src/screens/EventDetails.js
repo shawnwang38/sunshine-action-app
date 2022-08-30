@@ -28,7 +28,7 @@ export default function EventDetails(props) {
             setUnregister(true);
             props.registerEvent({ id: props.event.id, extra: Number(extra) }).then(() => {
                 setUnregister(false);
-                props.navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+                props.navigation.reset({ index: 0, routes: [{ name: props.home }] });
             }).catch(err => {
                 console.log(err);
                 setUnregister(false);
@@ -43,7 +43,7 @@ export default function EventDetails(props) {
             props.registerEvent({ id: props.event.id, extra: Number(extra) }).then(() => {
                 setLoading(false);
                 setModal(false);
-                props.navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+                props.navigation.reset({ index: 0, routes: [{ name: props.home }] });
             }).catch(err => {
                 console.log(err);
                 setLoading(false);
@@ -84,7 +84,7 @@ export default function EventDetails(props) {
                 </TouchableWithoutFeedback>
             </Modal>
             <View style = {{ justifyContent: "stretch" }}>
-                <Image style = {{ maxWidth: "100%", height: 250, resizeMode: "cover" }} source = {props.img} />
+                {props.img ? <Image style = {{ maxWidth: "100%", height: 250, resizeMode: "cover" }} source = {props.img} /> : null}
                 <View style = {{ padding: 15, paddingRight: 15 }}>
                     <View style = {{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                         <Ionicons name="ios-calendar-outline" size={16} />

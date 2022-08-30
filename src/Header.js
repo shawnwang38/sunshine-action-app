@@ -22,14 +22,10 @@ export default function Header(props) {
             <View style = {{flexGrow: 1}}>
                 <Text style = {{fontFamily: 'OpenSans_700Bold', textAlign: 'center', fontSize: 16 }}>
                     {props.text.toUpperCase()}
-                
-                
                 </Text>
-                
             </View>
-            <Button title = "Sign Out" onPress = {() => { signOut(props.auth) }}></Button>
             <TouchableOpacity >
-                <Image source={require('./../assets/ambassadorsymbol.png')} style={{ height: 20, width: 23 }} onPress={AmbassadorsScreen}/>
+                <Image source={require('./../assets/ambassadorsymbol.png')} style={{ height: 23, width: 20, marginLeft: 20 }} onPress={AmbassadorsScreen}/>
             </TouchableOpacity>
             
         </View>

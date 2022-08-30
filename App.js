@@ -64,32 +64,41 @@ const getEvents = httpsCallable(functions, "getEvents");
 const registerEvent = httpsCallable(functions, "registerEvent");
 
 const HomeStack = createNativeStackNavigator();
-function HomeStackScreen() {
+function HomeStackScreen({ navigation }) {
   return (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
       <HomeStack.Screen component = {HomeScreen} name="Home" />
-      <HomeStack.Screen component = {EventDetailsScreen} name="Event Details" />
+      <HomeStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "HomeStack" }} />
     </HomeStack.Navigator>
   )
 }
 function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-        <Header text = 'Home' auth = {auth} />
-        <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+          <Header text = 'Home' auth = {auth} />
+          <Home auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-function DiscoverScreen() {
+const DiscoverStack = createNativeStackNavigator();
+function DiscoverStackScreen({ navigation }) {
   return (
-    
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      
-      <Header text='Discover' />
-      <DiscoverTopBarNavigator />
-      
-      
-    </SafeAreaView>
+    <DiscoverStack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, contentStyle: styles.container }}>
+      <DiscoverStack.Screen component = {DiscoverScreen} name="Discover" />
+      <DiscoverStack.Screen component = {EventDetailsScreen} name="Event Details" initialParams={{ home: "DiscoverStack" }} />
+    </DiscoverStack.Navigator>
+  )
+}
+function DiscoverScreen({ navigation }) {
+  return (
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }} >
+        <Header text='Events' />
+        <DiscoverTopBarNavigator auth = {auth} firestore = {firestore} getEvents={getEvents} storage={storage} navigation={navigation} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 function NewsScreen() {
@@ -155,10 +164,12 @@ function AmbassadorsScreen() {
 }
 function EventDetailsScreen({ navigation, route }) {
   return (
-    <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
-      <Header text="Event Details" />
-      <EventDetails navigation = {navigation} event = {route.params.event} img = {route.params.img} user = {route.params.user} registerEvent = {registerEvent} />
-    </SafeAreaView>
+    <SafeAreaProvider style = {{flex: 1}}>
+      <SafeAreaView style ={{ flex: 1, justifyContent: 'flex-start', alignItems: 'stretch' }}>
+        <Header text="Event Details" />
+        <EventDetails home = {route.params.home} navigation = {navigation} event = {route.params.event} img = {route.params.img} user = {route.params.user} registerEvent = {registerEvent} />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -184,7 +195,7 @@ function Tabs({ navigation }) {
           let iconName;
           if (route.name === 'HomeStack') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
-          } else if (route.name === 'Discover') {
+          } else if (route.name === 'DiscoverStack') {
             iconName = focused ? 'ios-compass' : 'ios-compass-outline';
           } else if (route.name === 'News') {
             iconName = focused ? 'ios-newspaper' : 'ios-newspaper-outline';
@@ -205,7 +216,7 @@ function Tabs({ navigation }) {
       sceneContainerStyle = {styles.container}
     >
       <Tab.Screen name="HomeStack" component={HomeStackScreen} />
-      <Tab.Screen name="Discover" component={DiscoverScreen} />
+      <Tab.Screen name="DiscoverStack" component={DiscoverStackScreen} />
       <Tab.Screen name="News" component={NewsScreen} />
       <Tab.Screen name="Donate" component={DonateScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
