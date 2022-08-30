@@ -29,7 +29,6 @@ export default function Donate() {
 Sunshine Action has the following mailing address: Room D, 13/F Wing Kin Industrial Building, 4-6 Wing Kin Road, Kwai Chung." img={require('./../../assets/chequebutton.png')} />
             <ModalDisplay text="To make a donation via Stripe, visit https://buy.stripe.com/4gw9B42SBeNQayc9AA." img={require('./../../assets/stripebutton.png')} />
             </ScrollView>
-            
             </View>
         </ScrollView>
         

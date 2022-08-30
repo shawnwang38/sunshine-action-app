@@ -17,11 +17,15 @@ class ModalDisplay extends Component {
                     visible = {this.state.modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }>
                         <View style = {styles.modal}>
+                        <Text style = {{fontFamily: 'OpenSans_700Bold', fontSize: 16, marginVertical: 10, alignContent: 'center' }}>DONATE</Text>
                             <Text style = {styles.text}>{this.props.text}</Text>
-                            <TouchableHighlight onPress = {() => {
-                                this.toggleModal(!this.state.modalVisible)}}>
-                                    <Text style = {styles.close}>Close</Text>
+                            <View style = {{ paddingTop: 30, backgroundColor: 'transparent'}}>
+                            <TouchableHighlight onPress = {() => {this.toggleModal(!this.state.modalVisible)}}>
+                                <View style = {{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 5 }}>
+                                    <Text style = {{ fontFamily: 'OpenSans_400Regular', color: 'white', marginLeft: 10, marginRight: 4, fontSize: 16, position: 'relative', top: -1, paddingRight: 5 }}>Close</Text>
+                                </View>
                             </TouchableHighlight>
+                            </View>
                         </View>
                     </Modal>
                     
