@@ -21,6 +21,7 @@ const News = (props) => {
   /> : null}
       <View style={styles.cardHeader}>
       <Text style={styles.cardTitle}>{item.title} {item.author ? <Text style = {styles.cardAuthor}>{item.author}</Text> : null}</Text>
+      <Text>{'\n'}</Text>
       <Text style={styles.cardTime}>{fd(item.time)}</Text>
       </View>
       <View style={styles.cardContent}>

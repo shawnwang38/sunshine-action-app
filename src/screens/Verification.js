@@ -30,7 +30,7 @@ const Verification = (props) => {
     <SafeAreaView style = {props.style}>
       <KeyboardAvoidingView behavior = "position">
         <Image source={require('./../../assets/logo.png')} style={{ height: 200, width: 200, resizeMode: "contain", alignSelf: "center", marginBottom: 40}} />
-        <Text style = {{ textAlign: "center", marginHorizontal: 30 }}>We need to verify your email address. Please check your inbox for an email from us and use it to complete the verification process. When you are done, you can re-login.</Text>
+        <Text style = {{ textAlign: "center", marginHorizontal: 30 }}>We need to verify your email address. Please check your inbox and spam for an email from us and use it to complete the verification process. When you are done, you can re-login.</Text>
         <View style = {{ marginTop: 20 }}>
           { loading ? <ActivityIndicator style = {{ marginBottom: 20 }} /> : null }
           <Button title="Login" color="cornflowerblue" onPress={signOutApp} disabled={loading} />

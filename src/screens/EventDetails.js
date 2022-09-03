@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { TouchableWithoutFeedback, Text, View, ScrollView, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableHighlight, Keyboard, Touchable, ActivityIndicator } from "react-native";
+import { TouchableWithoutFeedback, Text, View, ScrollView, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableHighlight, Keyboard, Touchable, ActivityIndicator, RefreshControl } from "react-native";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EventRegisterModal from './EventRegisterModal';
 import openMap from "react-native-open-maps";
+import { refresh, refreshing } from './Home.js'
 
 export default function EventDetails(props) {
     const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -52,7 +53,7 @@ export default function EventDetails(props) {
     }
     let now = new Date();
     return (
-        <>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flexShrink: 0 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh}/>}>
             <Modal animationType = {"slide"} transparent = {false}
                     visible = {modal}>
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -112,7 +113,7 @@ export default function EventDetails(props) {
                     showsUserLocation={true}
                 />*/}
             </View>
-        </>
+        </ScrollView>
     );
 }
 
